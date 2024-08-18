@@ -8,7 +8,7 @@ const Colors = {
     CONTROLLER_BACKGROUND: '#F0F4F8',
     APP_BACKGROUND: '#f3f6f9',
     BORDER_COLOR: '#e8e8e8',
-    BLUE: '#00a5f5',
+    BLUE: '#6880E2',
     BLUE_TINT: '#01a0ec',
     RED: '#c7474a',
     GREEN: '#82c64e',
