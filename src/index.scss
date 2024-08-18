@@ -13,7 +13,8 @@ body,
 
 body {
     margin: 0;
-    background: white;
+    background: url('../public/assets/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: $text;
     font-family: 'Roboto', sans-serif !important;
     -webkit-font-smoothing: antialiased;
