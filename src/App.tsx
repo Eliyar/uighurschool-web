@@ -1,3 +1,5 @@
+import SignIn from './components/SignIn/SignIn'
+
 export const App = () => {
-    return <div>App</div>
+    return <SignIn />
 }
