@@ -1,5 +1,6 @@
-import SignIn from './components/SignIn/SignIn'
+import { Main } from './components/Main/Main'
 
 export const App = () => {
-    return <SignIn />
+    // return <SignIn />
+    return <Main />
 }
