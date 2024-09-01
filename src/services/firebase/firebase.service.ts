@@ -9,7 +9,6 @@ import { uploadFile } from './storage/upload-file'
 
 setFirestoreLogLevel('debug')
 
-// TODO: move to .env file
 const firebaseConfig: FirebaseOptions = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,

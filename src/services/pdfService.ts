@@ -1,8 +1,10 @@
 import { PDFDocument } from 'pdf-lib'
 
+import { utilsService } from './firebase/utils.service'
+
 const splitPdfPages = async (file: File): Promise<File[]> => {
     return new Promise((resolve, reject) => {
-        const fileName = file.name
+        const fileName = utilsService.removeFileExt(file.name)
 
         try {
             // Read the file as an ArrayBuffer
@@ -16,7 +18,7 @@ const splitPdfPages = async (file: File): Promise<File[]> => {
                 const pdf = await PDFDocument.load(pdfData)
                 const pageCount = pdf.getPageCount()
                 if (pageCount === 1) {
-                    return resolve([file])
+                    return resolve([])
                 }
 
                 // Loop through each page in the PDF
@@ -33,13 +35,10 @@ const splitPdfPages = async (file: File): Promise<File[]> => {
                     })
 
                     // Convert Blob to File
-                    const pageFile = new File(
-                        [blob],
-                        `${fileName} - Page ${i + 1}.pdf`,
-                        {
-                            type: 'application/pdf',
-                        }
-                    )
+                    const pageFileName = `${fileName} - Page ${i + 1}.pdf`
+                    const pageFile = new File([blob], pageFileName, {
+                        type: 'application/pdf',
+                    })
 
                     pageFiles.push(pageFile)
                 }
