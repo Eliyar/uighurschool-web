@@ -3,21 +3,24 @@ import './index.scss'
 import { ThemeProvider } from '@mui/material'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 
 import { App } from './App'
 import reportWebVitals from './reportWebVitals'
-import { firebaseService } from './services/firebase.service'
+import { storeService } from './services/store/store'
 import { theme } from './theme'
 
-// Initialize firebase
-firebaseService.init()
+// Create redux store
+const store = storeService.createStore()
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+        </Provider>
     </React.StrictMode>
 )
 
