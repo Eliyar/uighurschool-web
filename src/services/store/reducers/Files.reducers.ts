@@ -1,10 +1,16 @@
 import { produce } from 'immer'
 
-import { FilesLoaded } from '../actions'
+import { FileDeleted, FilesLoaded } from '../actions'
 import { State } from '../state'
 
 export const processFilesLoaded = (state: State, action: FilesLoaded) => {
     return produce(state, (draft) => {
         draft.files = action.files
+    })
+}
+
+export const processFileDeleted = (state: State, action: FileDeleted) => {
+    return produce(state, (draft) => {
+        draft.files = draft.files.filter((file) => file.id !== action.fileId)
     })
 }

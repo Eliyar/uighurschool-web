@@ -11,6 +11,7 @@ import { useCallback, useState } from 'react'
 import Colors from '../../../colors'
 import { utilsService } from '../../../services/firebase/utils.service'
 import { FileModel } from '../../../services/models/File.model'
+import { DeleteFile } from '../Actions/DeleteFile'
 
 interface Props {
     file: FileModel
@@ -82,14 +83,16 @@ export const FileMenu = ({ file }: Props) => {
 
                 <MenuItem divider />
 
-                <MenuItem>
-                    <ListItemIcon>
-                        <DeleteOutline color="error" />
-                    </ListItemIcon>
-                    <ListItemText sx={{ color: `${Colors.RED}` }}>
-                        Delete File
-                    </ListItemText>
-                </MenuItem>
+                <DeleteFile fileId={file.id}>
+                    <MenuItem>
+                        <ListItemIcon>
+                            <DeleteOutline color="error" />
+                        </ListItemIcon>
+                        <ListItemText sx={{ color: `${Colors.RED}` }}>
+                            Delete File
+                        </ListItemText>
+                    </MenuItem>
+                </DeleteFile>
             </Menu>
         </>
     )

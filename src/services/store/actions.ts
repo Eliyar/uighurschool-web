@@ -19,3 +19,17 @@ export class FilesLoaded extends Action {
         })
     }
 }
+
+export class FileDeleted extends Action {
+    static readonly type: string = '[Files] Deleted'
+    fileId!: string
+
+    static dispatch(fileId: string) {
+        storeService.dispatch({
+            type: FileDeleted.type,
+            payload: {
+                fileId,
+            },
+        })
+    }
+}
