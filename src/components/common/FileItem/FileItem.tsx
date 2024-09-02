@@ -1,8 +1,9 @@
 import { DescriptionOutlined } from '@mui/icons-material'
-import { Stack, styled, Typography } from '@mui/material'
+import { Chip, Stack, styled, Typography } from '@mui/material'
+import moment from 'moment'
 
 import Colors from '../../../colors'
-import { utilsService } from '../../../services/firebase/utils.service'
+import { DATE_FORMAT } from '../../../constants'
 import { FileModel } from '../../../services/models/File.model'
 import { FileMenu } from './FileMenu'
 
@@ -28,16 +29,38 @@ export const FileItem = ({ file }: Props) => {
                 <IconStyles>
                     <DescriptionOutlined />
                 </IconStyles>
-                <Stack>
+                <Stack spacing={0.5} sx={{ flex: '1 1 100%' }}>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        sx={{ flex: '1 1 100%' }}
+                    >
+                        <Typography
+                            className="truncate-row-2"
+                            variant="body2"
+                            fontWeight={500}
+                        >
+                            {file.name}
+                        </Typography>
+                        {file.tag && (
+                            <Chip
+                                label={file.tag}
+                                variant="outlined"
+                                color={
+                                    file.tag === 'lesson'
+                                        ? 'primary'
+                                        : 'warning'
+                                }
+                                size="small"
+                            />
+                        )}
+                    </Stack>
                     <Typography
                         className="truncate-row-2"
                         variant="body2"
-                        fontWeight={500}
+                        color="secondary"
                     >
-                        {file.name}
-                    </Typography>
-                    <Typography variant="caption" color="secondary">
-                        {utilsService.formatFileSize(file.size)}
+                        {moment(file.createdAt).format(DATE_FORMAT)}
                     </Typography>
                 </Stack>
             </Stack>

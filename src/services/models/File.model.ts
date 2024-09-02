@@ -3,7 +3,7 @@ import { utilsService } from '../firebase/utils.service'
 export class FileModel {
     id!: string
     name!: string
-    tag?: string
+    tag?: FileTag
     size!: number
     downloadUrl!: string
     createdAt!: string
@@ -23,7 +23,7 @@ export class FileModel {
         return model
     }
 
-    static getTag = (fileName: string): string => {
+    static getTag = (fileName: string): FileTag => {
         if (/(lesson)/i.test(fileName)) {
             return 'lesson'
         }
@@ -31,4 +31,4 @@ export class FileModel {
     }
 }
 
-export type FileTage = 'lesson' | 'story'
+export type FileTag = 'lesson' | 'story'
