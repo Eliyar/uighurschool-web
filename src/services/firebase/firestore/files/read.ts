@@ -1,7 +1,7 @@
 import { get, orderByChild, query, ref } from 'firebase/database'
 
-import { FileModel } from '../../models/File.model'
-import { firebaseDb } from '../firebase.service'
+import { FileModel } from '../../../models/File.model'
+import { firebaseDb } from '../../firebase.service'
 
 export const getFiles = async (): Promise<FileModel[]> => {
     if (!firebaseDb) {

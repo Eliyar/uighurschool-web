@@ -3,9 +3,9 @@ import { getDatabase } from 'firebase/database'
 import { setLogLevel as setFirestoreLogLevel } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-import { createFile } from './firestore/create-file'
-import { deleteFile } from './firestore/delete-file'
-import { getFiles } from './firestore/get-files'
+import { createFile } from './firestore/files/create'
+import { deleteFile } from './firestore/files/delete'
+import { getFiles } from './firestore/files/read'
 import { uploadFile } from './storage/upload-file'
 
 setFirestoreLogLevel('debug')
