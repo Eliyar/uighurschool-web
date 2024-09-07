@@ -1,4 +1,4 @@
-import { get, ref } from 'firebase/database'
+import { get, orderByChild, query, ref } from 'firebase/database'
 
 import { FileModel } from '../../models/File.model'
 import { firebaseDb } from '../firebase.service'
@@ -8,8 +8,10 @@ export const getFiles = async (): Promise<FileModel[]> => {
         throw new Error('Firebase database is not initialized')
     }
 
+    // Get files ordered by createdAt
     const filesRef = ref(firebaseDb, 'files')
-    const filesSnapshot = await get(filesRef)
+    const filesQuery = query(filesRef, orderByChild('createdAt'))
+    const filesSnapshot = await get(filesQuery)
 
     const files: FileModel[] = []
     filesSnapshot.forEach((fileSnapshot) => {
@@ -17,5 +19,6 @@ export const getFiles = async (): Promise<FileModel[]> => {
         files.push(file)
     })
 
-    return files
+    // Reverse the order to show the latest files first
+    return files.reverse()
 }
