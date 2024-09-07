@@ -34,15 +34,15 @@ export class FilesAdded extends Action {
     }
 }
 
-export class FileDeleted extends Action {
+export class FilesDeleted extends Action {
     static readonly type: string = '[Files] Deleted'
-    fileId!: string
+    fileIds!: string[]
 
-    static dispatch(fileId: string) {
+    static dispatch(fileIds: string[]) {
         storeService.dispatch({
-            type: FileDeleted.type,
+            type: FilesDeleted.type,
             payload: {
-                fileId,
+                fileIds,
             },
         })
     }

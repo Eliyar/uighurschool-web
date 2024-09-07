@@ -1,7 +1,7 @@
-import { FileDeleted, FilesAdded, FilesLoaded } from './actions'
+import { FilesAdded, FilesDeleted, FilesLoaded } from './actions'
 import {
-    processFileDeleted,
     processFilesAdded,
+    processFilesDeleted,
     processFilesLoaded,
 } from './reducers/Files.reducers'
 import { initialState, State } from './state'
@@ -16,8 +16,8 @@ export const reducer = (state: State = initialState, action: any) => {
         case FilesAdded.type:
             return processFilesAdded(state, payload)
 
-        case FileDeleted.type:
-            return processFileDeleted(state, payload)
+        case FilesDeleted.type:
+            return processFilesDeleted(state, payload)
     }
 
     return state

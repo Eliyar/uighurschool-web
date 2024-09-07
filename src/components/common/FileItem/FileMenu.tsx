@@ -20,20 +20,17 @@ interface Props {
 export const FileMenu = ({ file }: Props) => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
-    const handleOpenUserMenu = useCallback(
-        (event: React.MouseEvent<HTMLElement>) => {
-            setAnchorElUser(event.currentTarget)
-        },
-        []
-    )
+    const onOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget)
+    }, [])
 
-    const handleCloseUserMenu = useCallback(() => {
+    const onClose = useCallback(() => {
         setAnchorElUser(null)
     }, [])
 
     return (
         <>
-            <IconButton onClick={handleOpenUserMenu}>
+            <IconButton onClick={onOpen}>
                 <MoreVert fontSize="small" />
             </IconButton>
 
@@ -51,13 +48,13 @@ export const FileMenu = ({ file }: Props) => {
                     horizontal: 'right',
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
+                onClose={onClose}
             >
                 <MenuItem
                     key={file.id}
                     onClick={() => {
                         utilsService.openUrl(file.downloadUrl)
-                        handleCloseUserMenu()
+                        onClose()
                     }}
                 >
                     <ListItemIcon>
@@ -71,7 +68,7 @@ export const FileMenu = ({ file }: Props) => {
                         key={file.id}
                         onClick={() => {
                             utilsService.openUrl(file.downloadUrl)
-                            handleCloseUserMenu()
+                            onClose()
                         }}
                     >
                         <ListItemIcon>
@@ -83,7 +80,7 @@ export const FileMenu = ({ file }: Props) => {
 
                 <MenuItem divider />
 
-                <DeleteFile fileId={file.id}>
+                <DeleteFile fileId={file.id} onDeleted={() => onClose()}>
                     <MenuItem>
                         <ListItemIcon>
                             <DeleteOutline color="error" />
