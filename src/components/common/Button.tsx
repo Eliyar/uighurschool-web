@@ -1,5 +1,4 @@
 import {
-    Box,
     PopperPlacementType,
     styled,
     SxProps,
@@ -14,6 +13,7 @@ import ButtonLib, {
 import classNames from 'classnames'
 import { forwardRef, MouseEvent, ReactNode } from 'react'
 
+import { Loader } from './Loader'
 import { Tooltip } from './Tooltip'
 
 interface Props {
@@ -93,8 +93,7 @@ export const Button = forwardRef(
                 disabled={disabled || isLoading}
             >
                 {isLoading ? (
-                    // TODO: Update loading state
-                    <Box>Loading</Box>
+                    <Loader size={18} />
                 ) : (
                     <Typography variant="inherit" align={align}>
                         {label}

@@ -40,6 +40,7 @@ const themeOptions: ThemeOptions = {
                     ...(ownerState.variant === 'contained' && {
                         color: 'white',
                     }),
+                    minHeight: 40,
                     textTransform: 'none',
                     borderRadius: 6,
                 }),
