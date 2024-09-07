@@ -20,6 +20,20 @@ export class FilesLoaded extends Action {
     }
 }
 
+export class FilesAdded extends Action {
+    static readonly type: string = '[Files] Added'
+    files!: FileModel[]
+
+    static dispatch(files: FileModel[]) {
+        storeService.dispatch({
+            type: FilesAdded.type,
+            payload: {
+                files,
+            },
+        })
+    }
+}
+
 export class FileDeleted extends Action {
     static readonly type: string = '[Files] Deleted'
     fileId!: string

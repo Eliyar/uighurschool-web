@@ -2,6 +2,7 @@ import { MAX_UPLOAD_PAGES } from '../constants'
 import { firebaseService } from '../services/firebase/firebase.service'
 import { FileModel } from '../services/models/File.model'
 import { pdfService } from '../services/pdfService'
+import { FilesAdded } from '../services/store/actions'
 
 export const uploadFile = async (
     file: File | undefined
@@ -52,6 +53,9 @@ export const uploadFile = async (
         console.error('Error creating file:', error)
         return Promise.reject(error)
     }
+
+    // Add file to store
+    FilesAdded.dispatch([fileModel])
 
     return Promise.resolve(fileModel)
 }
