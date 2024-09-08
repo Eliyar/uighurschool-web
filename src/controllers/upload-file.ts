@@ -2,10 +2,11 @@ import { MAX_UPLOAD_PAGES } from '../constants'
 import { firebaseService } from '../services/firebase/firebase.service'
 import { FileModel } from '../services/models/File.model'
 import { pdfService } from '../services/pdfService'
-import { FilesAdded } from '../services/store/actions'
+import { FilesAdded, FilesDeleted } from '../services/store/actions'
 
 export const uploadFile = async (
-    file: File | undefined
+    file: File | undefined,
+    similarFiles: FileModel[]
 ): Promise<FileModel> => {
     if (!file) {
         return Promise.reject('No file provided')
@@ -56,6 +57,16 @@ export const uploadFile = async (
 
     // Add file to store
     FilesAdded.dispatch([fileModel])
+
+    // Delete similar files
+    if (similarFiles?.length) {
+        try {
+            await firebaseService.db.deleteFiles(similarFiles)
+            FilesDeleted.dispatch(similarFiles.map((file) => file.id))
+        } catch (error) {
+            console.error('Error deleting similar files:', error)
+        }
+    }
 
     return Promise.resolve(fileModel)
 }

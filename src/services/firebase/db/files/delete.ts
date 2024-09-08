@@ -9,3 +9,14 @@ export const deleteFile = async (id: string): Promise<void> => {
     }
     return update(ref(firebaseDb, `files/${id}`), updates)
 }
+
+export const deleteFiles = async (files: FileModel[]): Promise<void> => {
+    const updates: Record<string, Partial<FileModel>> = {}
+    files.forEach((file) => {
+        updates[file.id] = {
+            ...file,
+            deletedAt: new Date().toISOString(),
+        }
+    })
+    return update(ref(firebaseDb, 'files'), updates)
+}

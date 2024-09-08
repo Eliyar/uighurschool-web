@@ -4,7 +4,7 @@ import { setLogLevel as setFirestoreLogLevel } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
 import { createFile } from './db/files/create'
-import { deleteFile } from './db/files/delete'
+import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
 import { uploadFile } from './storage/upload-file'
 
@@ -30,6 +30,7 @@ export const firebaseService = {
         getFiles,
         createFile,
         deleteFile,
+        deleteFiles,
     },
     storage: {
         uploadFile,
