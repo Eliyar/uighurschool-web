@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import {
     BrowserRouter as Router,
     Navigate,
@@ -13,15 +12,8 @@ import { MainPage } from './components/Pages/MainPage'
 import { SignInPage } from './components/Pages/SignInPage'
 import { useRoute } from './hooks/useRoute'
 import { useUser } from './hooks/useUser'
-import { firebaseService } from './services/firebase/firebase.service'
-import { FilesLoaded } from './services/store/actions'
 
 export const App = () => {
-    // TODO: Move to resolveData hook
-    useEffect(() => {
-        firebaseService.db.getFiles().then(FilesLoaded.dispatch)
-    }, [])
-
     return (
         <Router>
             <AppRoutes />
