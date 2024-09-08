@@ -4,6 +4,10 @@ import { getDatabase } from 'firebase/database'
 import { setLogLevel as setFirestoreLogLevel } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
+import {
+    getAsyncSignedInUser,
+    getSignedInUser,
+} from './authentication/get-signed-in-user'
 import { signIn } from './authentication/sign-in'
 import { createFile } from './db/files/create'
 import { deleteFile, deleteFiles } from './db/files/delete'
@@ -30,6 +34,8 @@ export const firebaseStorage = getStorage(firebaseApp)
 
 export const firebaseService = {
     auth: {
+        getSignedInUser,
+        getAsyncSignedInUser,
         signIn,
     },
     db: {
