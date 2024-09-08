@@ -1,3 +1,5 @@
+import Fuse from 'fuse.js'
+
 import { utilsService } from '../firebase/utils.service'
 
 export class FileModel {
@@ -28,6 +30,18 @@ export class FileModel {
             return 'lesson'
         }
         return 'story'
+    }
+
+    static getBySimilarName = (
+        files: FileModel[],
+        name: string
+    ): FileModel[] => {
+        const fuse = new Fuse(files, {
+            keys: ['name'],
+            isCaseSensitive: false,
+            threshold: 0.2,
+        })
+        return fuse.search(name).map((item) => item.item)
     }
 }
 

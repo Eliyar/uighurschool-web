@@ -1,6 +1,6 @@
-import Fuse from 'fuse.js'
 import { useSelector } from 'react-redux'
 
+import { FileModel } from '../services/models/File.model'
 import { State } from '../services/store/state'
 
 export const useFiles = () => {
@@ -9,12 +9,7 @@ export const useFiles = () => {
     const filesActive = files.filter((file) => !file.deletedAt)
 
     const getBySimilarName = (name: string) => {
-        const fuse = new Fuse(filesActive, {
-            keys: ['name'],
-            isCaseSensitive: false,
-            threshold: 0.2,
-        })
-        return fuse.search(name).map((item) => item.item)
+        return FileModel.getBySimilarName(filesActive, name)
     }
 
     return {

@@ -1,14 +1,14 @@
 import { Grid } from '@mui/material'
 
-import { useFiles } from '../../hooks/useFiles'
 import { FileItem } from '../common/FileItem/FileItem'
+import { useLocalContext } from './hooks/useLocalContext'
 
 export const Files = () => {
-    const { filesActive } = useFiles()
+    const { files } = useLocalContext().files
 
     return (
         <Grid container spacing={2}>
-            {filesActive.map((file, index) => (
+            {files.map((file, index) => (
                 <Grid key={index} item xs={3}>
                     <FileItem file={file} />
                 </Grid>
