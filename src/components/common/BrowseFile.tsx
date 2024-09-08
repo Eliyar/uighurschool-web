@@ -2,7 +2,7 @@ import { CloudUpload } from '@mui/icons-material'
 import { Button, styled } from '@mui/material'
 
 interface Props {
-    onChange(file: File): void
+    onChange(files: File[]): void
 }
 
 export const BrowseFile = ({ onChange }: Props) => {
@@ -18,14 +18,12 @@ export const BrowseFile = ({ onChange }: Props) => {
             <HiddenInput
                 type="file"
                 accept="application/pdf"
+                multiple
                 onChange={(event: any) => {
-                    const file =
-                        event?.target?.files.length > 0
-                            ? event.target.files[0]
-                            : undefined
-                    if (file) {
-                        onChange(file)
-                    }
+                    const files = Array.from(
+                        event?.target?.files ?? []
+                    ) as File[]
+                    onChange(files)
                 }}
             />
         </Button>

@@ -3,60 +3,37 @@ import { useCallback, useState } from 'react'
 
 import { uploadFile } from '../../controllers/upload-file'
 import { useFiles } from '../../hooks/useFiles'
-import { useHttp } from '../../hooks/useHttp'
 import { utilsService } from '../../services/firebase/utils.service'
-import { FileModel } from '../../services/models/File.model'
 import { BrowseFile } from '../common/BrowseFile'
 import { Button } from '../common/Button'
-import { TextField } from '../common/TextField'
 
 export const FileUploader = () => {
     const { getBySimilarName } = useFiles()
-    const [file, setFile] = useState<File | undefined>(undefined)
-    const { isLoading, uploadRef } = useHttpReq()
+    const [files, setFiles] = useState<File[]>([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const onUpload = useCallback(async () => {
-        if (!file) {
+        if (!files?.length) {
             return
         }
 
-        try {
+        setIsLoading(true)
+        const promises = files.map((file) => {
             const fileName = utilsService.removeFileExt(file.name)
             const similarFiles = getBySimilarName(fileName)
-            await uploadRef(file, similarFiles)
+            return uploadFile(file, similarFiles)
+        })
+
+        Promise.all(promises).finally(() => {
             // TODO: display toast message
-        } catch (error) {
-            // TODO: display toast message
-            console.error(error)
-        }
-    }, [file, getBySimilarName, uploadRef])
+            setIsLoading(false)
+        })
+    }, [files, getBySimilarName])
 
     return (
         <Stack spacing={2}>
-            <BrowseFile onChange={setFile} />
-
-            <TextField
-                label="File Name"
-                value={file?.name ?? ''}
-                onChange={() => {}}
-            />
-
+            <BrowseFile onChange={setFiles} />
             <Button label="Upload" onClick={onUpload} isLoading={isLoading} />
         </Stack>
     )
-}
-
-const useHttpReq = () => {
-    const { isLoading, sendRequest } = useHttp()
-
-    const uploadRef = useCallback(
-        (file: File | undefined, similarFiles: FileModel[]) =>
-            sendRequest(uploadFile.bind(null, file, similarFiles)),
-        [sendRequest]
-    )
-
-    return {
-        isLoading,
-        uploadRef,
-    }
 }
