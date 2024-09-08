@@ -1,6 +1,5 @@
 import { Container, Paper, Stack } from '@mui/material'
 
-import { Navigation } from '../common/Navigation'
 import { Lessons } from '../Lessons/Lessons'
 import { SideBar } from '../SideBar/SideBar'
 
@@ -17,8 +16,6 @@ export const Main = () => {
                     <Stack direction="row">
                         <SideBar />
                         <Stack sx={{ flex: '1 1 100%' }}>
-                            <Navigation sx={{ p: 3 }} />
-
                             <Lessons />
                         </Stack>
                     </Stack>
