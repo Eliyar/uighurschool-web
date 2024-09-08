@@ -9,6 +9,7 @@ import { FileMenu } from './FileMenu'
 
 interface Props {
     file: FileModel
+    hideMenu?: boolean
 }
 
 const Styles = styled(Stack)`
@@ -17,7 +18,7 @@ const Styles = styled(Stack)`
     border-radius: 8px;
 `
 
-export const FileItem = ({ file }: Props) => {
+export const FileItem = ({ file, hideMenu }: Props) => {
     return (
         <Styles direction="row" alignItems="flex-start" spacing={2}>
             <Stack
@@ -68,7 +69,7 @@ export const FileItem = ({ file }: Props) => {
                     </Typography>
                 </Stack>
             </Stack>
-            <FileMenu file={file} />
+            {!hideMenu && <FileMenu file={file} />}
         </Styles>
     )
 }

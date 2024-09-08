@@ -12,8 +12,8 @@ export const Files = () => {
         return (
             <Alert color="warning" icon={<InfoOutlined />}>
                 {searchTerm
-                    ? `No files found for "${searchTerm}"`
-                    : 'No files exist'}
+                    ? `No lessons found for "${searchTerm}"`
+                    : 'No lessons exist'}
             </Alert>
         )
     }

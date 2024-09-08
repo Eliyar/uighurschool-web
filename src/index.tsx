@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 
 import { App } from './App'
+import { Portal } from './Portal'
 import reportWebVitals from './reportWebVitals'
 import { storeService } from './services/store/store'
 import { theme } from './theme'
@@ -19,6 +20,7 @@ root.render(
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <App />
+                <Portal />
             </ThemeProvider>
         </Provider>
     </React.StrictMode>

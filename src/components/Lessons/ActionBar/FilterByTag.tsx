@@ -16,8 +16,8 @@ const Styles = styled(ToggleButtonGroup)`
     }
 
     .${toggleButtonClasses.root} {
-        padding-left: 12px;
-        padding-right: 12px;
+        padding-left: 16px;
+        padding-right: 16px;
         background-color: transparent;
         border: 0;
         text-transform: none;
@@ -25,7 +25,7 @@ const Styles = styled(ToggleButtonGroup)`
     }
 
     .${toggleButtonClasses.selected} {
-        background-color: white;
+        background-color: white !important;
         border: 1px solid ${Colors.BORDER_COLOR};
     }
 `
@@ -36,7 +36,6 @@ export const FilterByTag = () => {
     return (
         <Styles
             exclusive
-            size="small"
             value={tag}
             onChange={(_, value) => setTag(value ?? 'all')}
         >

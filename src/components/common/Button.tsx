@@ -53,7 +53,9 @@ interface Props {
     onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 }
 
-const Styles = styled(ButtonLib)``
+const Styles = styled(ButtonLib)`
+    box-shadow: none;
+`
 
 export const Button = forwardRef(
     (

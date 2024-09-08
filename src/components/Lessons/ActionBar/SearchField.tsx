@@ -10,7 +10,6 @@ export const SearchField = () => {
     return (
         <TextField
             placeholder="Search"
-            size="small"
             startIcon={<SearchOutlined color="secondary" sx={{ mr: 2 }} />}
             endIcon={
                 searchTerm ? (
