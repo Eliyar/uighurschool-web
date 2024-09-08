@@ -34,6 +34,7 @@ interface Props {
               ButtonPropsColorOverrides
           >
         | undefined
+    type?: 'button' | 'submit' | 'reset'
     label: ReactNode | string
     startIcon?: ReactNode
     endIcon?: ReactNode
@@ -61,6 +62,7 @@ export const Button = forwardRef(
     (
         {
             className,
+            type,
             variant,
             color,
             label,
@@ -81,6 +83,7 @@ export const Button = forwardRef(
         const buttonNode = (
             <Styles
                 ref={ref}
+                type={type}
                 className={classNames(className)}
                 variant={variant}
                 color={color}

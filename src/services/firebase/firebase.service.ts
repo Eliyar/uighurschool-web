@@ -1,8 +1,10 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
 import { setLogLevel as setFirestoreLogLevel } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
+import { signIn } from './authentication/sign-in'
 import { createFile } from './db/files/create'
 import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
@@ -22,10 +24,14 @@ const firebaseConfig: FirebaseOptions = {
 }
 
 export const firebaseApp = initializeApp(firebaseConfig)
+export const firebaseAuth = getAuth(firebaseApp)
 export const firebaseDb = getDatabase(firebaseApp)
 export const firebaseStorage = getStorage(firebaseApp)
 
 export const firebaseService = {
+    auth: {
+        signIn,
+    },
     db: {
         getFiles,
         createFile,
