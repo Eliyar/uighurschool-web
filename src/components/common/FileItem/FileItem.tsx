@@ -52,6 +52,10 @@ export const FileItem = ({ file }: Props) => {
                                         : 'warning'
                                 }
                                 size="small"
+                                sx={{
+                                    textTransform: 'capitalize',
+                                    fontWeight: 500,
+                                }}
                             />
                         )}
                     </Stack>
