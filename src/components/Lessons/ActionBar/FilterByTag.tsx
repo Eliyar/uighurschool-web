@@ -1,6 +1,6 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 
-import { useLocalContext } from './hooks/useLocalContext'
+import { useLocalContext } from '../hooks/useLocalContext'
 
 export const FilterByTag = () => {
     const { tag, setTag } = useLocalContext().filters
@@ -8,6 +8,7 @@ export const FilterByTag = () => {
     return (
         <ToggleButtonGroup
             exclusive
+            size="small"
             value={tag}
             onChange={(_, value) => setTag(value)}
         >

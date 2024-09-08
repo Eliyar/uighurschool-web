@@ -1,6 +1,7 @@
-import { Box, Stack } from '@mui/material'
+import { Stack } from '@mui/material'
 
-import { FilterByTag } from '../FilterByTag'
+import { FilterByTag } from './FilterByTag'
+import { SearchField } from './SearchField'
 
 export const ActionBar = () => {
     return (
@@ -10,8 +11,7 @@ export const ActionBar = () => {
             justifyContent="space-between"
         >
             <FilterByTag />
-
-            <Box>[Search File]</Box>
+            <SearchField />
         </Stack>
     )
 }

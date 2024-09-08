@@ -13,6 +13,7 @@ interface Props {
     id?: string
     type?: string
     label?: ReactNode | string
+    placeholder?: string
     helperText?: ReactNode | string
     multiline?: boolean
     focusOnMount?: boolean
@@ -42,6 +43,7 @@ export const TextField = forwardRef(
             id,
             type,
             label,
+            placeholder,
             helperText,
             focusOnMount,
             multiline,
@@ -77,6 +79,7 @@ export const TextField = forwardRef(
                 id={id}
                 type={type}
                 label={label}
+                placeholder={placeholder}
                 helperText={helperText}
                 size={size ?? 'medium'}
                 InputProps={{

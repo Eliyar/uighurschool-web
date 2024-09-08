@@ -1,10 +1,22 @@
-import { Grid } from '@mui/material'
+import { InfoOutlined } from '@mui/icons-material'
+import { Alert, Grid } from '@mui/material'
 
 import { FileItem } from '../common/FileItem/FileItem'
 import { useLocalContext } from './hooks/useLocalContext'
 
 export const Files = () => {
     const { files } = useLocalContext().files
+    const { searchTerm } = useLocalContext().filters
+
+    if (!files.length) {
+        return (
+            <Alert color="warning" icon={<InfoOutlined />}>
+                {searchTerm
+                    ? `No files found for "${searchTerm}"`
+                    : 'No files exist'}
+            </Alert>
+        )
+    }
 
     return (
         <Grid container spacing={2}>
