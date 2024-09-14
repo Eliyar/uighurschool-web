@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom'
 import { useRoute } from '../../../hooks/useRoute'
 
 export const Nav = () => {
-    const { lessonsRoute, sendRoute } = useRoute()
+    const { lessonsRoute, sendRoute, classesRoute } = useRoute()
 
     return (
         <Stack spacing={2}>
@@ -33,9 +33,16 @@ export const Nav = () => {
                     </IconButton>
                 )}
             </NavLink>
-            <IconButton size="large">
-                <SchoolTwoTone fontSize="large" />
-            </IconButton>
+            <NavLink to={classesRoute}>
+                {({ isActive }) => (
+                    <IconButton
+                        size="large"
+                        color={isActive ? 'primary' : 'secondary'}
+                    >
+                        <SchoolTwoTone fontSize="large" />
+                    </IconButton>
+                )}
+            </NavLink>
         </Stack>
     )
 }

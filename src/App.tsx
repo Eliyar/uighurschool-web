@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 
 import { AuthCheckPage } from './components/Pages/AuthCheckPage'
+import { ClassesPage } from './components/Pages/ClassesPage'
 import { LessonsPage } from './components/Pages/LessonsPage'
 import { MainPage } from './components/Pages/MainPage'
 import { SendPage } from './components/Pages/SendPage'
@@ -23,8 +24,14 @@ export const App = () => {
 }
 
 const AppRoutes = () => {
-    const { signInRoute, lessonsRoute, sendRoute, authCheckRoute, mainRoute } =
-        useRoute()
+    const {
+        signInRoute,
+        lessonsRoute,
+        sendRoute,
+        authCheckRoute,
+        mainRoute,
+        classesRoute,
+    } = useRoute()
     return (
         <Routes>
             <Route path={signInRoute} element={<SignInPage />} />
@@ -39,6 +46,7 @@ const AppRoutes = () => {
             >
                 <Route path={lessonsRoute} element={<LessonsPage />} />
                 <Route path={sendRoute} element={<SendPage />} />
+                <Route path={classesRoute} element={<ClassesPage />} />
                 <Route
                     path={`${mainRoute}`}
                     element={<Navigate to={lessonsRoute} replace />}

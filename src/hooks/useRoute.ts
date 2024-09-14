@@ -10,6 +10,7 @@ enum ROUTE {
     LESSONS = '/lessons',
     SEND = '/send',
     UNAUTHORIZED = '/unauthorized',
+    CLASSES = '/classes',
 }
 
 const authCheckRoute = `${BASE_HREF}${ROUTE.AUTHCHECK}`
@@ -18,6 +19,7 @@ const mainRoute = `${BASE_HREF}${ROUTE.MAIN}`
 const lessonsRoute = `${BASE_HREF}${ROUTE.LESSONS}`
 const sendRoute = `${BASE_HREF}${ROUTE.SEND}`
 const unauthorizedRoute = `${BASE_HREF}${ROUTE.UNAUTHORIZED}`
+const classesRoute = `${BASE_HREF}${ROUTE.CLASSES}`
 
 const publicRoutes = [ROUTE.SIGNIN]
 
@@ -41,6 +43,7 @@ export const useRoute = () => {
     const navMain = useCallback(() => navigate(mainRoute), [navigate])
     const navLessons = useCallback(() => navigate(lessonsRoute), [navigate])
     const navSend = useCallback(() => navigate(sendRoute), [navigate])
+    const navClasses = useCallback(() => navigate(classesRoute), [navigate])
     const navUnauthorized = useCallback(
         () => navigate(unauthorizedRoute),
         [navigate]
@@ -52,6 +55,7 @@ export const useRoute = () => {
         mainRoute,
         lessonsRoute,
         sendRoute,
+        classesRoute,
         unauthorizedRoute,
         isProtectedRoute,
         navAuthCheck,
@@ -59,6 +63,7 @@ export const useRoute = () => {
         navMain,
         navLessons,
         navSend,
+        navClasses,
         navUnauthorized,
     }
 }
