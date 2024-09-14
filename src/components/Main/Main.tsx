@@ -1,6 +1,6 @@
 import { Container, Paper, Stack } from '@mui/material'
+import { Outlet } from 'react-router'
 
-import { Lessons } from '../Lessons/Lessons'
 import { SideBar } from '../SideBar/SideBar'
 
 export const Main = () => {
@@ -16,7 +16,7 @@ export const Main = () => {
                     <Stack direction="row">
                         <SideBar />
                         <Stack sx={{ flex: '1 1 100%' }}>
-                            <Lessons />
+                            <Outlet />
                         </Stack>
                     </Stack>
                 </Paper>

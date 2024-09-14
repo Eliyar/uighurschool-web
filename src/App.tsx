@@ -9,6 +9,7 @@ import {
 import { AuthCheckPage } from './components/Pages/AuthCheckPage'
 import { LessonsPage } from './components/Pages/LessonsPage'
 import { MainPage } from './components/Pages/MainPage'
+import { SendPage } from './components/Pages/SendPage'
 import { SignInPage } from './components/Pages/SignInPage'
 import { useRoute } from './hooks/useRoute'
 import { useUser } from './hooks/useUser'
@@ -22,7 +23,8 @@ export const App = () => {
 }
 
 const AppRoutes = () => {
-    const { signInRoute, lessonsRoute, authCheckRoute, mainRoute } = useRoute()
+    const { signInRoute, lessonsRoute, sendRoute, authCheckRoute, mainRoute } =
+        useRoute()
     return (
         <Routes>
             <Route path={signInRoute} element={<SignInPage />} />
@@ -36,6 +38,7 @@ const AppRoutes = () => {
                 }
             >
                 <Route path={lessonsRoute} element={<LessonsPage />} />
+                <Route path={sendRoute} element={<SendPage />} />
                 <Route
                     path={`${mainRoute}`}
                     element={<Navigate to={lessonsRoute} replace />}
