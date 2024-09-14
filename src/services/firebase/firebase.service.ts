@@ -9,9 +9,15 @@ import {
     getSignedInUser,
 } from './authentication/get-signed-in-user'
 import { signIn } from './authentication/sign-in'
+import { createClass } from './db/classes/create'
+import { getClasses } from './db/classes/read'
+import { createClassStudent } from './db/classStudents/create'
+import { getClassStudents } from './db/classStudents/read'
 import { createFile } from './db/files/create'
 import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
+import { createStudent } from './db/students/create'
+import { getStudents } from './db/students/read'
 import { uploadFile } from './storage/upload-file'
 
 setFirestoreLogLevel('debug')
@@ -39,8 +45,14 @@ export const firebaseService = {
         signIn,
     },
     db: {
-        getFiles,
         createFile,
+        createClass,
+        createClassStudent,
+        createStudent,
+        getFiles,
+        getClasses,
+        getClassStudents,
+        getStudents,
         deleteFile,
         deleteFiles,
     },
