@@ -1,5 +1,6 @@
 import { Class } from '../models/Class.model'
 import { FileModel } from '../models/File.model'
+import { Student } from '../models/Student.model'
 import { storeService } from './store'
 
 export class Action {
@@ -88,6 +89,22 @@ export class ClassUpdated extends Action {
             payload: {
                 classId,
                 updates,
+            },
+        })
+    }
+}
+
+export class StudentsLoaded extends Action {
+    static readonly type: string = '[Students] Loaded'
+    classId!: string
+    students!: Student[]
+
+    static dispatch(classId: string, students: Student[]) {
+        storeService.dispatch({
+            type: StudentsLoaded.type,
+            payload: {
+                classId,
+                students,
             },
         })
     }

@@ -4,12 +4,17 @@ import { Outlet } from 'react-router'
 
 import { getClasses } from '../../controllers/get-classes'
 import { getFiles } from '../../controllers/get-files'
+import { getStudents } from '../../controllers/get-students'
 import { SideBar } from '../common/SideBar/SideBar'
 
 export const Main = () => {
     useEffect(() => {
-        getFiles()
-        getClasses()
+        const loadData = async () => {
+            getFiles()
+            const classes = await getClasses()
+            getStudents(classes)
+        }
+        loadData()
     }, [])
 
     return (

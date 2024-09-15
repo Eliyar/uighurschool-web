@@ -5,6 +5,7 @@ import {
     FilesAdded,
     FilesDeleted,
     FilesLoaded,
+    StudentsLoaded,
 } from './actions'
 import {
     processClassAdded,
@@ -16,6 +17,7 @@ import {
     processFilesDeleted,
     processFilesLoaded,
 } from './reducers/Files.reducers'
+import { processStudentsLoaded } from './reducers/Students.reducers'
 import { initialState, State } from './state'
 
 export const reducer = (state: State = initialState, action: any) => {
@@ -39,6 +41,9 @@ export const reducer = (state: State = initialState, action: any) => {
 
         case ClassUpdated.type:
             return processClassUpdated(state, payload)
+
+        case StudentsLoaded.type:
+            return processStudentsLoaded(state, payload)
     }
 
     return state
