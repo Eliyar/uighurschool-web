@@ -23,3 +23,12 @@ export class OpenFileUploaderDialog {
         })
     }
 }
+
+export class OpenClassFormDialog {
+    static readonly type: string = 'OpenClassFormDialog'
+    static emit = () => {
+        eventBus.emit({
+            action: OpenClassFormDialog.type,
+        })
+    }
+}

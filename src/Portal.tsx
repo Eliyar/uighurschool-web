@@ -1,22 +1,30 @@
 import { useEffect, useMemo, useState } from 'react'
 
 import {
+    ClassFormDialog,
+    ClassFormDialogProps,
+} from './components/common/ClassFormDialog/ClassFormDialog'
+import {
     FileUploaderDialog,
     FileUploaderDialogProps,
 } from './components/common/FileUploaderDialog/FileUploaderDialog'
 import {
     eventBus,
     EventBusData,
+    OpenClassFormDialog,
     OpenFileUploaderDialog,
 } from './services/eventbus.service'
 
 export const Portal = () => {
     const [fileUploaderDialogProps, setFileUploaderDialogProps] =
         useState<FileUploaderDialogProps | null>(null)
+    const [classFormDialogProps, setClassFormDialogProps] =
+        useState<ClassFormDialogProps | null>(null)
 
     const diaglogEventsRef = useMemo(() => {
         return {
             [OpenFileUploaderDialog.type]: setFileUploaderDialogProps,
+            [OpenClassFormDialog.type]: setClassFormDialogProps, // Add this line
         }
     }, [])
 
@@ -37,6 +45,9 @@ export const Portal = () => {
         <>
             {fileUploaderDialogProps && (
                 <FileUploaderDialog {...fileUploaderDialogProps} />
+            )}
+            {classFormDialogProps && (
+                <ClassFormDialog {...classFormDialogProps} />
             )}
         </>
     )
