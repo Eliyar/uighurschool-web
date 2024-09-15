@@ -109,3 +109,19 @@ export class StudentsLoaded extends Action {
         })
     }
 }
+
+export class StudentAdded extends Action {
+    static readonly type: string = '[Students] Added'
+    classId!: string
+    student!: Student
+
+    static dispatch(classId: string, student: Student) {
+        storeService.dispatch({
+            type: StudentAdded.type,
+            payload: {
+                classId,
+                student,
+            },
+        })
+    }
+}
