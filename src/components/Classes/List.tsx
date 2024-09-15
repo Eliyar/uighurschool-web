@@ -1,5 +1,6 @@
 import {
     CameraOutlined,
+    Edit,
     ExpandMore,
     InfoOutlined,
     PersonAddOutlined,
@@ -10,12 +11,16 @@ import {
     AccordionSummary,
     Alert,
     Box,
+    IconButton,
     Stack,
     Typography,
 } from '@mui/material'
 
 import { useClasses } from '../../hooks/useClasses'
-import { OpenStudentFormDialog } from '../../services/eventbus.service'
+import {
+    OpenClassFormDialog,
+    OpenStudentFormDialog,
+} from '../../services/eventbus.service'
 import { Button } from '../common/Button'
 
 export const List = () => {
@@ -45,9 +50,23 @@ export const List = () => {
                             spacing={1}
                             sx={{ width: '100%', mr: 3 }}
                         >
-                            <Typography variant="body2" fontWeight={500}>
-                                {classObj.name}
-                            </Typography>
+                            <Stack
+                                direction="row"
+                                alignItems="center"
+                                spacing={2}
+                            >
+                                <Typography variant="body2" fontWeight={500}>
+                                    {classObj.name}
+                                </Typography>
+                                <IconButton
+                                    onClick={(event) => {
+                                        event.stopPropagation()
+                                        OpenClassFormDialog.emit(classObj)
+                                    }}
+                                >
+                                    <Edit />
+                                </IconButton>
+                            </Stack>
 
                             <Stack direction="row" spacing={1}>
                                 <Button

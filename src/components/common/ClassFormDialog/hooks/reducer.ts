@@ -42,7 +42,9 @@ export const reducer = (form: FormFields, action: any): FormFields => {
             case ActionType.SET_CLASS: {
                 const classObj: Class = action.payload.classObj
                 draft.classObj = classObj
-                draft.name.value = classObj.name
+                if (classObj) {
+                    draft.name.value = classObj.name
+                }
                 break
             }
 

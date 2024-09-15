@@ -11,6 +11,7 @@ import {
 import { signIn } from './authentication/sign-in'
 import { createClass } from './db/classes/create'
 import { getClasses } from './db/classes/read'
+import { updateClass } from './db/classes/update'
 import { createClassStudent } from './db/classStudents/create'
 import { getClassStudents } from './db/classStudents/read'
 import { createFile } from './db/files/create'
@@ -53,6 +54,7 @@ export const firebaseService = {
         getClasses,
         getClassStudents,
         getStudents,
+        updateClass,
         deleteFile,
         deleteFiles,
     },

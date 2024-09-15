@@ -29,9 +29,12 @@ export class OpenFileUploaderDialog {
 
 export class OpenClassFormDialog {
     static readonly type: string = 'OpenClassFormDialog'
-    static emit = () => {
+    static emit = (classObj?: Class) => {
         eventBus.emit({
             action: OpenClassFormDialog.type,
+            payload: {
+                classObj,
+            },
         })
     }
 }

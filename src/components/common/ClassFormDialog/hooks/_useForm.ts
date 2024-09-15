@@ -1,5 +1,7 @@
-import { useCallback, useReducer } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 
+import { createClass } from '../../../../controllers/create-class'
+import { updateClass } from '../../../../controllers/update-class'
 import { useClasses } from '../../../../hooks/useClasses'
 import {
     FieldError,
@@ -7,7 +9,6 @@ import {
     initialField,
     TextField,
 } from '../../../../lib/field'
-import { firebaseService } from '../../../../services/firebase/firebase.service'
 import { Class } from '../../../../services/models/Class.model'
 import { ActionType, reducer } from './reducer'
 
@@ -118,11 +119,16 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
             }
 
             if (isUpdating) {
-                // Update class
+                const updates = toUpdates(form)
+                try {
+                    await updateClass(classObj.id, updates)
+                } catch (error) {
+                    console.error(error)
+                }
             } else {
                 const newClass = toClass(form)
                 try {
-                    await firebaseService.db.createClass(newClass)
+                    await createClass(newClass)
                 } catch (error) {
                     console.error(error)
                 }
@@ -132,7 +138,7 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
 
             callback()
         },
-        [isUpdating, form, validateForm]
+        [isUpdating, classObj, form, validateForm]
     )
 
     const resetForm = useCallback(() => {
@@ -140,6 +146,10 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
             type: ActionType.RESET_FORM,
         })
     }, [])
+
+    useEffect(() => {
+        setClass(classObj ?? null)
+    }, [classObj, setClass])
 
     return {
         form,
@@ -156,4 +166,11 @@ const toClass = (form: FormFields): Class => {
 
     const classObj = new Class(name)
     return classObj
+}
+
+const toUpdates = (form: FormFields): Partial<Class> => {
+    const name = form.name.value as string
+    return {
+        name,
+    }
 }

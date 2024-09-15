@@ -62,3 +62,33 @@ export class ClassesLoaded extends Action {
         })
     }
 }
+
+export class ClassAdded extends Action {
+    static readonly type: string = '[Classes] Added'
+    classObj!: Class
+
+    static dispatch(classObj: Class) {
+        storeService.dispatch({
+            type: ClassAdded.type,
+            payload: {
+                classObj,
+            },
+        })
+    }
+}
+
+export class ClassUpdated extends Action {
+    static readonly type: string = '[Classes] Updated'
+    classId!: string
+    updates!: Partial<Class>
+
+    static dispatch(classId: string, updates: Partial<Class>) {
+        storeService.dispatch({
+            type: ClassUpdated.type,
+            payload: {
+                classId,
+                updates,
+            },
+        })
+    }
+}
