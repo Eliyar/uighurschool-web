@@ -1,3 +1,4 @@
+import { Class } from '../models/Class.model'
 import { FileModel } from '../models/File.model'
 import { storeService } from './store'
 
@@ -43,6 +44,20 @@ export class FilesDeleted extends Action {
             type: FilesDeleted.type,
             payload: {
                 fileIds,
+            },
+        })
+    }
+}
+
+export class ClassesLoaded extends Action {
+    static readonly type: string = '[Classes] Loaded'
+    classes!: Class[]
+
+    static dispatch(classes: Class[]) {
+        storeService.dispatch({
+            type: ClassesLoaded.type,
+            payload: {
+                classes,
             },
         })
     }

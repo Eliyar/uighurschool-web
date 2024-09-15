@@ -1,9 +1,17 @@
 import { Container, Paper, Stack } from '@mui/material'
+import { useEffect } from 'react'
 import { Outlet } from 'react-router'
 
+import { getClasses } from '../../controllers/get-classes'
+import { getFiles } from '../../controllers/get-files'
 import { SideBar } from '../common/SideBar/SideBar'
 
 export const Main = () => {
+    useEffect(() => {
+        getFiles()
+        getClasses()
+    }, [])
+
     return (
         <Container component="main" maxWidth="xl" sx={{ height: '100%' }}>
             <Stack
