@@ -10,7 +10,6 @@ import {
     AccordionDetails,
     AccordionSummary,
     Alert,
-    Box,
     IconButton,
     Stack,
     Typography,
@@ -22,8 +21,9 @@ import {
     OpenStudentFormDialog,
 } from '../../services/eventbus.service'
 import { Button } from '../common/Button'
+import { StudentsList } from './StudentsList'
 
-export const List = () => {
+export const ClassesList = () => {
     const { classes } = useClasses()
 
     if (!classes?.length) {
@@ -93,9 +93,7 @@ export const List = () => {
                         </Stack>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Stack>
-                            <Box>Students</Box>
-                        </Stack>
+                        <StudentsList classId={classObj.id} />
                     </AccordionDetails>
                 </Accordion>
             ))}
