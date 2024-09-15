@@ -9,10 +9,15 @@ import {
     FileUploaderDialogProps,
 } from './components/common/FileUploaderDialog/FileUploaderDialog'
 import {
+    StudentFormDialog,
+    StudentFormDialogProps,
+} from './components/common/StudentFormDialog/StudentFormDialog'
+import {
     eventBus,
     EventBusData,
     OpenClassFormDialog,
     OpenFileUploaderDialog,
+    OpenStudentFormDialog,
 } from './services/eventbus.service'
 
 export const Portal = () => {
@@ -20,11 +25,14 @@ export const Portal = () => {
         useState<FileUploaderDialogProps | null>(null)
     const [classFormDialogProps, setClassFormDialogProps] =
         useState<ClassFormDialogProps | null>(null)
+    const [studentFormDialogProps, setStudentFormDialogProps] =
+        useState<StudentFormDialogProps | null>(null)
 
     const diaglogEventsRef = useMemo(() => {
         return {
             [OpenFileUploaderDialog.type]: setFileUploaderDialogProps,
-            [OpenClassFormDialog.type]: setClassFormDialogProps, // Add this line
+            [OpenClassFormDialog.type]: setClassFormDialogProps,
+            [OpenStudentFormDialog.type]: setStudentFormDialogProps,
         }
     }, [])
 
@@ -48,6 +56,9 @@ export const Portal = () => {
             )}
             {classFormDialogProps && (
                 <ClassFormDialog {...classFormDialogProps} />
+            )}
+            {studentFormDialogProps && (
+                <StudentFormDialog {...studentFormDialogProps} />
             )}
         </>
     )

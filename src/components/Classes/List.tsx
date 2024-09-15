@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 
 import { useClasses } from '../../hooks/useClasses'
+import { OpenStudentFormDialog } from '../../services/eventbus.service'
 import { Button } from '../common/Button'
 
 export const List = () => {
@@ -55,6 +56,10 @@ export const List = () => {
                                     startIcon={<PersonAddOutlined />}
                                     onClick={(event) => {
                                         event.stopPropagation()
+                                        OpenStudentFormDialog.emit(
+                                            classObj,
+                                            undefined
+                                        )
                                     }}
                                 />
                                 <Button

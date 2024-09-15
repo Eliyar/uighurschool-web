@@ -1,5 +1,8 @@
 import { Observable, Subject } from 'rxjs'
 
+import { Class } from './models/Class.model'
+import { Student } from './models/Student.model'
+
 export interface EventBusData {
     action: any
     payload?: any
@@ -29,6 +32,19 @@ export class OpenClassFormDialog {
     static emit = () => {
         eventBus.emit({
             action: OpenClassFormDialog.type,
+        })
+    }
+}
+
+export class OpenStudentFormDialog {
+    static readonly type: string = 'OpenStudentFormDialog'
+    static emit = (classObj: Class, student?: Student) => {
+        eventBus.emit({
+            action: OpenStudentFormDialog.type,
+            payload: {
+                classObj,
+                student,
+            },
         })
     }
 }
