@@ -1,5 +1,6 @@
 import { useCallback, useReducer } from 'react'
 
+import { useClasses } from '../../../../hooks/useClasses'
 import {
     FieldError,
     FieldValue,
@@ -32,6 +33,7 @@ export interface FormHookState {
 }
 
 export const useForm = (classObj: Class | undefined): FormHookState => {
+    const { getBySimilarName } = useClasses()
     const [form, dispatch] = useReducer(reducer, initialForm)
 
     const isUpdating = !!classObj
@@ -81,6 +83,13 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
                         updateFieldError(fieldKey, 'Invalid field')
                         return false
                     }
+
+                    const classes = getBySimilarName(value as string)
+                    if (classes?.length > 0) {
+                        updateFieldError(fieldKey, 'Class already exists')
+                        return false
+                    }
+
                     return true
                 }
 
@@ -89,7 +98,7 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
                 }
             }
         },
-        [form, updateFieldError]
+        [form, updateFieldError, getBySimilarName]
     )
 
     const validateForm = useCallback(() => {

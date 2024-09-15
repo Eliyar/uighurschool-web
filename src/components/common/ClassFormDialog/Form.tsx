@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const Form = ({ isUpdating, sx, onClose }: Props) => {
-    const { form, updateField, submit } = useLocalContext().form
+    const { form, updateField, submit, validateField } = useLocalContext().form
 
     const onSubmit = useCallback(
         (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,6 +34,7 @@ export const Form = ({ isUpdating, sx, onClose }: Props) => {
                 name={(form.name.value as string) ?? ''}
                 error={form.name.error}
                 onChange={(value) => updateField('name', value)}
+                onBlur={() => validateField('name')}
             />
 
             <DialogFooter
