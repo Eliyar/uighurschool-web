@@ -1,12 +1,14 @@
-import { Box } from '@mui/material'
+import { Stack } from '@mui/material'
 import React from 'react'
 
-import { ClassformDialogTrigger } from '../common/ClassFormDialog/ClassformDialogTrigger'
+import { ActionBar } from './ActionBar'
+import { List } from './List'
 
 export const Classes: React.FC = () => {
     return (
-        <Box>
-            <ClassformDialogTrigger />
-        </Box>
+        <Stack sx={{ p: 3 }} spacing={3}>
+            <ActionBar />
+            <List />
+        </Stack>
     )
 }

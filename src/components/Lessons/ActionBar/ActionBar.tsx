@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 
 import { FileUploaderDialogTrigger } from '../../common/FileUploaderDialog/FileUploaderDialogTrigger'
 import { FilterByTag } from './FilterByTag'
@@ -11,9 +11,12 @@ export const ActionBar = () => {
             alignItems="center"
             justifyContent="space-between"
         >
-            <FilterByTag />
+            <Stack direction="row" alignItems="center" spacing={2}>
+                <Typography variant="h6">Lessons</Typography>
+            </Stack>
 
             <Stack direction="row" spacing={1}>
+                <FilterByTag />
                 <SearchField />
                 <FileUploaderDialogTrigger />
             </Stack>

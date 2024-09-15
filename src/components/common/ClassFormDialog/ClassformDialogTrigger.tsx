@@ -1,4 +1,4 @@
-import { Add } from '@mui/icons-material'
+import { CreateNewFolderOutlined } from '@mui/icons-material'
 
 import { OpenClassFormDialog } from '../../../services/eventbus.service'
 import { Button } from '../Button'
@@ -9,7 +9,7 @@ export const ClassformDialogTrigger = () => {
             variant="contained"
             label="Create Class"
             size="small"
-            startIcon={<Add />}
+            startIcon={<CreateNewFolderOutlined />}
             onClick={() => OpenClassFormDialog.emit()}
             sx={{ px: 3 }}
         />
