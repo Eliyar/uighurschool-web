@@ -147,3 +147,19 @@ export class StudentUpdated extends Action {
         })
     }
 }
+
+export class StudentDeleted extends Action {
+    static readonly type: string = '[Students] Deleted'
+    classId!: string
+    studentId!: string
+
+    static dispatch(classId: string, studentId: string) {
+        storeService.dispatch({
+            type: StudentDeleted.type,
+            payload: {
+                classId,
+                studentId,
+            },
+        })
+    }
+}

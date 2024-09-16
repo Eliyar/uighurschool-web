@@ -13,11 +13,13 @@ import { createClass } from './db/classes/create'
 import { getClasses } from './db/classes/read'
 import { updateClass } from './db/classes/update'
 import { createClassStudent } from './db/classStudents/create'
+import { deleteClassStudent } from './db/classStudents/delete'
 import { getClassStudents } from './db/classStudents/read'
 import { createFile } from './db/files/create'
 import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
 import { createStudent } from './db/students/create'
+import { deleteStudent } from './db/students/delete'
 import { getStudents } from './db/students/read'
 import { updateStudent } from './db/students/update'
 import { uploadFile } from './storage/upload-file'
@@ -59,6 +61,8 @@ export const firebaseService = {
         updateStudent,
         deleteFile,
         deleteFiles,
+        deleteStudent,
+        deleteClassStudent,
     },
     storage: {
         uploadFile,

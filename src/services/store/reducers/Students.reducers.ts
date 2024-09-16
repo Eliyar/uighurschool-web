@@ -1,6 +1,11 @@
 import { produce } from 'immer'
 
-import { StudentAdded, StudentsLoaded, StudentUpdated } from '../actions'
+import {
+    StudentAdded,
+    StudentDeleted,
+    StudentsLoaded,
+    StudentUpdated,
+} from '../actions'
 import { State } from '../state'
 
 export const processStudentsLoaded = (state: State, action: StudentsLoaded) => {
@@ -29,6 +34,19 @@ export const processStudentUpdated = (state: State, action: StudentUpdated) => {
             if (student) {
                 Object.assign(student, updates)
             }
+        }
+    })
+}
+
+export const processStudentDeleted = (state: State, action: StudentDeleted) => {
+    const { classId, studentId } = action
+    return produce(state, (draft) => {
+        const students = draft.studentsMap.get(classId)
+        if (students) {
+            draft.studentsMap.set(
+                classId,
+                students.filter((s) => s.id !== studentId)
+            )
         }
     })
 }

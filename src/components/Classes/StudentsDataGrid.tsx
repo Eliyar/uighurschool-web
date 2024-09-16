@@ -3,6 +3,7 @@ import { Alert, Stack, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid'
 import { useCallback, useMemo } from 'react'
 
+import { deleteStudent } from '../../controllers/delete-student'
 import { updateStudent } from '../../controllers/update-student'
 import { useStudents } from '../../hooks/useStudents'
 import { OpenStudentFormDialog } from '../../services/eventbus.service'
@@ -49,11 +50,14 @@ const columns: GridColDef[] = [
                 color="error"
                 label="Remove Student"
                 startIcon={<Close />}
-                onClick={(event) => {
+                onClick={async (event) => {
                     event.stopPropagation()
-                    console.log(params)
 
-                    // Delete student
+                    // TODO: display confirmation dialog
+
+                    await deleteStudent(params.row.classId, params.row.id)
+
+                    // TODO: display toast message
                 }}
             />,
         ],
@@ -77,18 +81,9 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
                 name: student.name,
                 uighurName: student.uighurName ?? '',
                 email: student.email,
-                // renderActionsCell: (
-                //     <Button
-                //         variant="outlined"
-                //         label="Delete"
-                //         startIcon={<PersonAddOutlined />}
-                //         onClick={(event) => {
-                //             event.stopPropagation()
-                //         }}
-                //     />
-                // ),
+                classId: classObj.id,
             })) ?? [],
-        [students]
+        [students, classObj.id]
     )
 
     const onUpdate = useCallback(
