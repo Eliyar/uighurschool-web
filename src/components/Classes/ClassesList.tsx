@@ -21,7 +21,7 @@ import {
     OpenStudentFormDialog,
 } from '../../services/eventbus.service'
 import { Button } from '../common/Button'
-import { StudentsList } from './StudentsList'
+import { StudentsDataGrid } from './StudentsDataGrid'
 
 export const ClassesList = () => {
     const { classes } = useClasses()
@@ -93,7 +93,7 @@ export const ClassesList = () => {
                         </Stack>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <StudentsList classId={classObj.id} />
+                        <StudentsDataGrid classObj={classObj} />
                     </AccordionDetails>
                 </Accordion>
             ))}

@@ -125,3 +125,25 @@ export class StudentAdded extends Action {
         })
     }
 }
+
+export class StudentUpdated extends Action {
+    static readonly type: string = '[Students] Updated'
+    classId!: string
+    studentId!: string
+    updates!: Partial<Student>
+
+    static dispatch(
+        classId: string,
+        studentId: string,
+        updates: Partial<Student>
+    ) {
+        storeService.dispatch({
+            type: StudentUpdated.type,
+            payload: {
+                classId,
+                studentId,
+                updates,
+            },
+        })
+    }
+}

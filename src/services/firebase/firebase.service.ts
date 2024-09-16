@@ -19,6 +19,7 @@ import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
 import { createStudent } from './db/students/create'
 import { getStudents } from './db/students/read'
+import { updateStudent } from './db/students/update'
 import { uploadFile } from './storage/upload-file'
 
 setFirestoreLogLevel('debug')
@@ -55,6 +56,7 @@ export const firebaseService = {
         getClassStudents,
         getStudents,
         updateClass,
+        updateStudent,
         deleteFile,
         deleteFiles,
     },
