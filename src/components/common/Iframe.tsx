@@ -7,8 +7,10 @@ const Styles = styled('iframe')`
 `
 
 export const Iframe = ({ src }: { src: string }) => {
-    const googleDocsUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(
-        src
-    )}&embedded=true`
-    return <Styles src={googleDocsUrl} />
+    const url = `${src}#view=FitH`
+    return <Styles src={url} />
 }
+
+// const url = `https://docs.google.com/viewer?url=${encodeURIComponent(
+//     src
+// )}&embedded=true`
