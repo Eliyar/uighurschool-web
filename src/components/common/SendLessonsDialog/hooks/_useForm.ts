@@ -6,6 +6,7 @@ import {
     initialField,
     TextField,
 } from '../../../../lib/field'
+import { Student } from '../../../../services/models/Student.model'
 import { validationService } from '../../../../services/validation.service'
 import { ActionType, reducer } from './reducer'
 
@@ -13,19 +14,22 @@ export interface FormFields {
     email: TextField
     subject: TextField
     message: TextField
+    students: Student[]
 }
 
 export const initialForm: FormFields = {
     email: initialField,
     subject: initialField,
     message: initialField,
+    students: [],
 }
 
-export type FormFieldKeys = keyof FormFields
+export type FormFieldKeys = keyof Omit<FormFields, 'students'>
 
 export interface FormHookState {
     form: FormFields
     updateField(fieldKey: FormFieldKeys, fieldValue: FieldValue): void
+    setStudents(students: Student[]): void
     validateField(fieldKey: FormFieldKeys): boolean
     submit(callback: () => void): void
     resetForm(): void
@@ -59,6 +63,13 @@ export const useForm = (): FormHookState => {
         },
         []
     )
+
+    const setStudents = useCallback((students: Student[]) => {
+        dispatch({
+            type: ActionType.SET_STUDENTS,
+            payload: { students },
+        })
+    }, [])
 
     const validateField = useCallback(
         (fieldKey: FormFieldKeys) => {
@@ -96,6 +107,9 @@ export const useForm = (): FormHookState => {
 
     const validateForm = useCallback(() => {
         const isValid = Object.keys(form).every((fieldKey) => {
+            if (fieldKey === 'students') {
+                return form.students.length > 0
+            }
             return validateField(fieldKey as FormFieldKeys)
         })
         return isValid
@@ -124,6 +138,7 @@ export const useForm = (): FormHookState => {
         form,
         updateField,
         validateField,
+        setStudents,
         submit,
         resetForm,
     }

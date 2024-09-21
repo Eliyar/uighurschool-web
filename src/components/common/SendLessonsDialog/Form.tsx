@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 
 import { Button } from '../Button'
 import { DialogFooter } from '../DialogFooter'
+import { MultiSelectStudentsAutocomplete } from '../MultiSelectStudentsAutocomplete'
 import { TextField } from '../TextField'
 import { useLocalContext } from './hooks/useLocalContext'
 
@@ -15,7 +16,8 @@ interface Props {
 }
 
 export const Form = ({ sx, onClose }: Props) => {
-    const { form, updateField, submit, validateField } = useLocalContext().form
+    const { form, updateField, setStudents, submit, validateField } =
+        useLocalContext().form
 
     const onSubmit = useCallback(
         (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,14 +30,13 @@ export const Form = ({ sx, onClose }: Props) => {
 
     return (
         <Stack sx={sx} spacing={2}>
-            <TextField
-                label="Email"
-                value={(form.email.value as string) ?? ''}
-                error={!!form.email.error}
-                helperText={form.email.error}
-                onChange={(value) => updateField('email', value)}
-                onBlur={() => validateField('email')}
+            <MultiSelectStudentsAutocomplete
+                label="Students"
+                placeholder="Select"
+                students={form.students}
+                onChange={setStudents}
             />
+
             <TextField
                 label="Subject"
                 value={(form.subject.value as string) ?? ''}

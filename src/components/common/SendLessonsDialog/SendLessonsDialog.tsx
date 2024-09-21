@@ -24,7 +24,7 @@ export const SendLessonsDialog = ({
         <Styles
             open={open}
             fullWidth
-            maxWidth="sm"
+            maxWidth="lg"
             onClose={onClose}
             PaperComponent={(props) => (
                 <DialogPaperComponent

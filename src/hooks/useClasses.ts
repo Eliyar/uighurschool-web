@@ -9,15 +9,7 @@ export const useClasses = () => {
 
     const getBySimilarName = useCallback(
         (name: string) => {
-            const _classes = Class.getByName(classes, name)
-
-            console.log({
-                classes,
-                _classes,
-                name,
-            })
-
-            return _classes
+            return Class.getByName(classes, name)
         },
         [classes]
     )
