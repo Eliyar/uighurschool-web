@@ -9,7 +9,6 @@ import {
 import { useCallback, useState } from 'react'
 
 import Colors from '../../../colors'
-import { useRoute } from '../../../hooks/useRoute'
 import { FileModel } from '../../../services/models/File.model'
 import { NavItem } from '../../../services/models/NavItem.model'
 import { AddNavItem } from '../../../services/store/actions'
@@ -20,7 +19,6 @@ interface Props {
 }
 
 export const FileMenu = ({ file }: Props) => {
-    const { navViewFile } = useRoute()
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
     const onOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
@@ -36,13 +34,11 @@ export const FileMenu = ({ file }: Props) => {
         (event: React.MouseEvent<HTMLElement>, _file: FileModel) => {
             event.stopPropagation()
             AddNavItem.dispatch(
-                new NavItem(_file.id, _file.name, () => {
-                    navViewFile(_file.id)
-                })
+                new NavItem(_file.id, _file.name, _file.downloadUrl)
             )
             onClose()
         },
-        [navViewFile, onClose]
+        [onClose]
     )
 
     return (

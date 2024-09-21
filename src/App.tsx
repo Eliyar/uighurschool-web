@@ -13,6 +13,7 @@ import { MainPage } from './components/Pages/MainPage'
 import { SendPage } from './components/Pages/SendPage'
 import { SignInPage } from './components/Pages/SignInPage'
 import { ViewFilePage } from './components/Pages/ViewFilePage'
+import { ViewUrlPage } from './components/Pages/ViewUrlPage'
 import { useRoute } from './hooks/useRoute'
 import { useUser } from './hooks/useUser'
 
@@ -33,6 +34,7 @@ const AppRoutes = () => {
         mainRoute,
         classesRoute,
         filesRoute,
+        urlRoute,
     } = useRoute()
     return (
         <Routes>
@@ -50,6 +52,7 @@ const AppRoutes = () => {
                 <Route path={sendRoute} element={<SendPage />} />
                 <Route path={classesRoute} element={<ClassesPage />} />
                 <Route path={filesRoute} element={<ViewFilePage />} />
+                <Route path={urlRoute} element={<ViewUrlPage />} />
                 <Route
                     path={`${mainRoute}`}
                     element={<Navigate to={lessonsRoute} replace />}

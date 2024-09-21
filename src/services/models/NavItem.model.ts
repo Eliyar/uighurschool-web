@@ -1,11 +1,11 @@
 export class NavItem {
     id: string
     name: string
-    navFuncRef: () => void
+    url: string
 
-    constructor(id: string, name: string, navFuncRef: () => void) {
+    constructor(id: string, name: string, url: string) {
         this.id = id
         this.name = name
-        this.navFuncRef = navFuncRef
+        this.url = url
     }
 }

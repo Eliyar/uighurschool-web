@@ -39,11 +39,12 @@ export const NavBar = () => {
 
 const NavItems = () => {
     const { fileId } = useParams<{ fileId: string }>()
-    const { navMain } = useRoute()
+    const { navMain, navViewUrl } = useRoute()
     const { navItems } = useNavItems()
 
     return (
         <Tabs
+            value={false}
             variant="scrollable"
             scrollButtons="auto"
             sx={{ flex: '1 1 100%', width: '100px', minWidth: '100px' }}
@@ -60,7 +61,7 @@ const NavItems = () => {
                                 variant={isActive ? 'contained' : 'outlined'}
                                 label={navItem.name}
                                 onClick={() => {
-                                    navItem.navFuncRef()
+                                    navViewUrl(navItem.id)
                                 }}
                                 endIcon={
                                     <IconButton
