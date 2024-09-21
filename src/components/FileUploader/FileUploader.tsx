@@ -53,15 +53,13 @@ export const FileUploader = ({ onUploaded, onClose }: Props) => {
                     />
                 </>
             ) : (
-                <>
-                    <BrowseFile onChange={setFiles} />
-                    <Button
-                        color="secondary"
-                        label="Cancel"
-                        onClick={(event) => onClose?.(event, 'backdropClick')}
-                    />
-                </>
+                <BrowseFile onChange={setFiles} />
             )}
+            <Button
+                color="secondary"
+                label="Cancel"
+                onClick={(event) => onClose?.(event, 'backdropClick')}
+            />
         </Stack>
     )
 }

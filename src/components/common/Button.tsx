@@ -96,6 +96,7 @@ export const Button = forwardRef(
                     onClick && onClick(event)
                 }
                 disabled={disabled || isLoading}
+                disableElevation
             >
                 {isLoading ? (
                     <Loader size={18} />

@@ -9,8 +9,10 @@ import {
 import { useCallback, useState } from 'react'
 
 import Colors from '../../../colors'
-import { utilsService } from '../../../services/firebase/utils.service'
+import { useRoute } from '../../../hooks/useRoute'
 import { FileModel } from '../../../services/models/File.model'
+import { NavItem } from '../../../services/models/NavItem.model'
+import { AddNavItem } from '../../../services/store/actions'
 import { DeleteFile } from '../Actions/DeleteFile'
 
 interface Props {
@@ -18,15 +20,30 @@ interface Props {
 }
 
 export const FileMenu = ({ file }: Props) => {
+    const { navViewFile } = useRoute()
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
     const onOpen = useCallback((event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation()
         setAnchorElUser(event.currentTarget)
     }, [])
 
     const onClose = useCallback(() => {
         setAnchorElUser(null)
     }, [])
+
+    const onView = useCallback(
+        (event: React.MouseEvent<HTMLElement>, _file: FileModel) => {
+            event.stopPropagation()
+            AddNavItem.dispatch(
+                new NavItem(_file.id, _file.name, () => {
+                    navViewFile(_file.id)
+                })
+            )
+            onClose()
+        },
+        [navViewFile, onClose]
+    )
 
     return (
         <>
@@ -52,10 +69,7 @@ export const FileMenu = ({ file }: Props) => {
             >
                 <MenuItem
                     key={file.id}
-                    onClick={() => {
-                        utilsService.openUrl(file.downloadUrl)
-                        onClose()
-                    }}
+                    onClick={(event) => onView(event, file)}
                 >
                     <ListItemIcon>
                         <Visibility color="secondary" />
@@ -66,10 +80,7 @@ export const FileMenu = ({ file }: Props) => {
                 {file.subFiles?.map((file, index) => (
                     <MenuItem
                         key={file.id}
-                        onClick={() => {
-                            utilsService.openUrl(file.downloadUrl)
-                            onClose()
-                        }}
+                        onClick={(event) => onView(event, file)}
                     >
                         <ListItemIcon>
                             <Visibility color="secondary" />

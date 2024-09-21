@@ -1,13 +1,30 @@
 import { InfoOutlined } from '@mui/icons-material'
 import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
+import { useCallback } from 'react'
 
+import { useRoute } from '../../../hooks/useRoute'
+import { FileModel } from '../../../services/models/File.model'
+import { NavItem } from '../../../services/models/NavItem.model'
+import { AddNavItem } from '../../../services/store/actions'
 import { Button } from '../../common/Button'
 import { FileItem } from '../../common/FileItem/FileItem'
 import { useLocalContext } from './hooks/useLocalContext'
 
 export const Files = () => {
+    const { navViewFile } = useRoute()
     const { files } = useLocalContext().files
     const { searchTerm, setSearchTerm } = useLocalContext().filters
+
+    const onView = useCallback(
+        (file: FileModel) => {
+            AddNavItem.dispatch(
+                new NavItem(file.id, file.name, () => {
+                    navViewFile(file.id)
+                })
+            )
+        },
+        [navViewFile]
+    )
 
     if (!files.length) {
         return (
@@ -42,10 +59,10 @@ export const Files = () => {
     }
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} sx={{ width: '100%' }}>
             {files.map((file, index) => (
                 <Grid key={index} item xs={3}>
-                    <FileItem file={file} />
+                    <FileItem file={file} onView={onView} />
                 </Grid>
             ))}
         </Grid>

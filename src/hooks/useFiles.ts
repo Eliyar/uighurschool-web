@@ -12,11 +12,16 @@ export const useFiles = () => {
         [files]
     )
 
+    const filesAndSubFiles = useMemo(
+        () => files.flatMap((file) => [file, ...(file.subFiles || [])]),
+        [files]
+    )
+
     const getById = useCallback(
         (id: string) => {
-            return files.find((file) => file.id === id)
+            return filesAndSubFiles.find((file) => file.id === id)
         },
-        [files]
+        [filesAndSubFiles]
     )
 
     const getBySimilarName = useCallback(

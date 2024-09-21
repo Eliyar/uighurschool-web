@@ -1,5 +1,6 @@
 import { Class } from '../models/Class.model'
 import { FileModel } from '../models/File.model'
+import { NavItem } from '../models/NavItem.model'
 import { Student } from '../models/Student.model'
 import { storeService } from './store'
 
@@ -160,6 +161,27 @@ export class StudentDeleted extends Action {
                 classId,
                 studentId,
             },
+        })
+    }
+}
+
+export class AddNavItem extends Action {
+    static readonly type: string = '[NavItems] Add'
+    navItem!: NavItem
+
+    static dispatch(navItem: NavItem) {
+        storeService.dispatch({ type: AddNavItem.type, payload: { navItem } })
+    }
+}
+
+export class RemoveNavItem extends Action {
+    static readonly type: string = '[NavItems] Remove'
+    navItem!: NavItem
+
+    static dispatch(navItem: NavItem) {
+        storeService.dispatch({
+            type: RemoveNavItem.type,
+            payload: { navItem },
         })
     }
 }
