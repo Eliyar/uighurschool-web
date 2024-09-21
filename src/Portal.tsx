@@ -9,6 +9,10 @@ import {
     FileUploaderDialogProps,
 } from './components/common/FileUploaderDialog/FileUploaderDialog'
 import {
+    SendLessonsDialog,
+    SendLessonsDialogProps,
+} from './components/common/SendLessonsDialog/SendLessonsDialog'
+import {
     StudentFormDialog,
     StudentFormDialogProps,
 } from './components/common/StudentFormDialog/StudentFormDialog'
@@ -17,6 +21,7 @@ import {
     EventBusData,
     OpenClassFormDialog,
     OpenFileUploaderDialog,
+    OpenSendLessonsDialog,
     OpenStudentFormDialog,
 } from './services/eventbus.service'
 
@@ -27,12 +32,15 @@ export const Portal = () => {
         useState<ClassFormDialogProps | null>(null)
     const [studentFormDialogProps, setStudentFormDialogProps] =
         useState<StudentFormDialogProps | null>(null)
+    const [sendLessonsDialogProps, setSendLessonsDialogProps] =
+        useState<SendLessonsDialogProps | null>(null)
 
-    const diaglogEventsRef = useMemo(() => {
+    const dialogEventsRef = useMemo(() => {
         return {
             [OpenFileUploaderDialog.type]: setFileUploaderDialogProps,
             [OpenClassFormDialog.type]: setClassFormDialogProps,
             [OpenStudentFormDialog.type]: setStudentFormDialogProps,
+            [OpenSendLessonsDialog.type]: setSendLessonsDialogProps,
         }
     }, [])
 
@@ -40,14 +48,14 @@ export const Portal = () => {
         const subscription = eventBus
             .getObservable()
             .subscribe((event: EventBusData) => {
-                const funcRef = diaglogEventsRef[event.action as any]
+                const funcRef = dialogEventsRef[event.action as any]
                 resolveDialogEvent(event, funcRef)
             })
 
         return () => {
             subscription.unsubscribe()
         }
-    }, [diaglogEventsRef])
+    }, [dialogEventsRef])
 
     return (
         <>
@@ -59,6 +67,9 @@ export const Portal = () => {
             )}
             {studentFormDialogProps && (
                 <StudentFormDialog {...studentFormDialogProps} />
+            )}
+            {sendLessonsDialogProps && (
+                <SendLessonsDialog {...sendLessonsDialogProps} />
             )}
         </>
     )

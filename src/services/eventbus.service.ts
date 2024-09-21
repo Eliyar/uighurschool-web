@@ -51,3 +51,12 @@ export class OpenStudentFormDialog {
         })
     }
 }
+
+export class OpenSendLessonsDialog {
+    static readonly type: string = 'OpenSendLessonsDialog'
+    static emit = () => {
+        eventBus.emit({
+            action: OpenSendLessonsDialog.type,
+        })
+    }
+}
