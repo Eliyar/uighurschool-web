@@ -34,7 +34,11 @@ export const Form = ({ sx, onClose }: Props) => {
                 label="Students"
                 placeholder="Select"
                 students={form.students}
-                onChange={setStudents}
+                onChange={(students, classId) => {
+                    setStudents(students)
+
+                    console.log('classId:', classId)
+                }}
             />
 
             <TextField

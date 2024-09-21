@@ -11,7 +11,7 @@ interface Props {
     placeholder?: string
     students: Student[]
     sx?: SxProps<Theme>
-    onChange(students: Student[]): void
+    onChange(students: Student[], classId?: string): void
 }
 
 export const MultiSelectStudentsAutocomplete = ({
@@ -33,6 +33,8 @@ export const MultiSelectStudentsAutocomplete = ({
             inputValue={inputValue}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             onChange={(_, selected) => {
+                const classId = selected?.find((s) => s.classId)?.classId
+
                 const selectedStudents =
                     selected?.flatMap((s) => s.extendedProps as Student[]) ?? []
 
@@ -44,7 +46,7 @@ export const MultiSelectStudentsAutocomplete = ({
                             ) === index
                     ) ?? []
 
-                onChange(uniqueSelectedStudents)
+                onChange(uniqueSelectedStudents, classId)
             }}
             onInputChange={(_, value) => setInputValue(value)}
             renderInput={(params) => (
@@ -104,6 +106,7 @@ export interface AutocompleteOption {
     id: string
     value: string
     label: string
+    classId?: string
     extendedProps?: Student[]
 }
 
@@ -127,6 +130,7 @@ const makeOptionsFromClasses = (
             const students = getStudentsByClassId(classObj.id)
             return {
                 id: classObj.id,
+                classId: classObj.id,
                 value: classObj.id,
                 label: classObj.name,
                 extendedProps: students,
