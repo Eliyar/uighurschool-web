@@ -9,9 +9,8 @@ import {
 import { useCallback, useState } from 'react'
 
 import Colors from '../../../colors'
+import { openFile } from '../../../controllers/open-file'
 import { FileModel } from '../../../services/models/File.model'
-import { NavItem } from '../../../services/models/NavItem.model'
-import { AddNavItem } from '../../../services/store/actions'
 import { DeleteFile } from '../Actions/DeleteFile'
 
 interface Props {
@@ -33,9 +32,7 @@ export const FileMenu = ({ file }: Props) => {
     const onView = useCallback(
         (event: React.MouseEvent<HTMLElement>, _file: FileModel) => {
             event.stopPropagation()
-            AddNavItem.dispatch(
-                new NavItem(_file.id, _file.name, _file.downloadUrl)
-            )
+            openFile(_file)
             onClose()
         },
         [onClose]

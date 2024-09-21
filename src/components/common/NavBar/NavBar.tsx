@@ -4,9 +4,9 @@ import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
 import Colors from '../../../colors'
+import { deleteNavItem } from '../../../controllers/delete-navitem'
 import { useNavItems } from '../../../hooks/useNavItems'
 import { useRoute } from '../../../hooks/useRoute'
-import { RemoveNavItem } from '../../../services/store/actions'
 import { Button } from '../Button'
 import { Logo } from '../Logo'
 
@@ -67,7 +67,7 @@ const NavItems = () => {
                                     <IconButton
                                         onClick={(event) => {
                                             event.stopPropagation()
-                                            RemoveNavItem.dispatch(navItem)
+                                            deleteNavItem(navItem)
                                             if (isActive) {
                                                 navMain()
                                             }

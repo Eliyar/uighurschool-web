@@ -2,9 +2,8 @@ import { InfoOutlined } from '@mui/icons-material'
 import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
 import { useCallback } from 'react'
 
+import { openFile } from '../../../controllers/open-file'
 import { FileModel } from '../../../services/models/File.model'
-import { NavItem } from '../../../services/models/NavItem.model'
-import { AddNavItem } from '../../../services/store/actions'
 import { Button } from '../../common/Button'
 import { FileItem } from '../../common/FileItem/FileItem'
 import { useLocalContext } from './hooks/useLocalContext'
@@ -14,7 +13,7 @@ export const Files = () => {
     const { searchTerm, setSearchTerm } = useLocalContext().filters
 
     const onView = useCallback((file: FileModel) => {
-        AddNavItem.dispatch(new NavItem(file.id, file.name, file.downloadUrl))
+        openFile(file)
     }, [])
 
     if (!files.length) {
