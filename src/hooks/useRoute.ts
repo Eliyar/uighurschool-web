@@ -9,6 +9,7 @@ enum ROUTE {
     SIGNIN = '/auth/signin',
     LESSONS = '/lessons',
     SEND = '/send',
+    FILES = '/files',
     UNAUTHORIZED = '/unauthorized',
     CLASSES = '/classes',
 }
@@ -18,6 +19,7 @@ const signInRoute = `${BASE_HREF}${ROUTE.SIGNIN}`
 const mainRoute = `${BASE_HREF}${ROUTE.MAIN}`
 const lessonsRoute = `${BASE_HREF}${ROUTE.LESSONS}`
 const sendRoute = `${BASE_HREF}${ROUTE.SEND}`
+const filesRoute = `${BASE_HREF}${ROUTE.FILES}/:fileId`
 const unauthorizedRoute = `${BASE_HREF}${ROUTE.UNAUTHORIZED}`
 const classesRoute = `${BASE_HREF}${ROUTE.CLASSES}`
 
@@ -43,6 +45,11 @@ export const useRoute = () => {
     const navMain = useCallback(() => navigate(mainRoute), [navigate])
     const navLessons = useCallback(() => navigate(lessonsRoute), [navigate])
     const navSend = useCallback(() => navigate(sendRoute), [navigate])
+    const navViewFile = useCallback(
+        (fileId: string) => navigate(filesRoute.replace(':fileId', fileId)),
+        [navigate]
+    )
+
     const navClasses = useCallback(() => navigate(classesRoute), [navigate])
     const navUnauthorized = useCallback(
         () => navigate(unauthorizedRoute),
@@ -56,6 +63,7 @@ export const useRoute = () => {
         lessonsRoute,
         sendRoute,
         classesRoute,
+        filesRoute,
         unauthorizedRoute,
         isProtectedRoute,
         navAuthCheck,
@@ -64,6 +72,7 @@ export const useRoute = () => {
         navLessons,
         navSend,
         navClasses,
+        navViewFile,
         navUnauthorized,
     }
 }
