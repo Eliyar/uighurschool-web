@@ -1,16 +1,19 @@
-import { Stack } from '@mui/material'
+import { Divider, Stack } from '@mui/material'
 
-import { ActionBar } from './ActionBar/ActionBar'
-import { Files } from './Files'
-import { LocalContextProvider } from './hooks/useLocalContext'
+import { AllFiles } from './AllLessons/AllFiles'
+import { LocalContextProvider } from './AllLessons/hooks/useLocalContext'
+import { UpcomingLessons } from './UpcomingLessons/UpcomingLessons'
 
 export const Lessons = () => {
     return (
-        <LocalContextProvider>
-            <Stack sx={{ p: 3 }} spacing={3}>
-                <ActionBar />
-                <Files />
-            </Stack>
-        </LocalContextProvider>
+        <Stack sx={{ p: 3 }} spacing={3}>
+            <UpcomingLessons />
+
+            <Divider />
+
+            <LocalContextProvider>
+                <AllFiles />
+            </LocalContextProvider>
+        </Stack>
     )
 }

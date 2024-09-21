@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { FileTag } from '../../../services/models/File.model'
+import { FileTag } from '../../../../services/models/File.model'
 
 export interface FiltersHookState {
     tag: FileTag | 'all'

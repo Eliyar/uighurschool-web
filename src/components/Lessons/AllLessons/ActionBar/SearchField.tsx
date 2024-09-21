@@ -1,7 +1,7 @@
 import { Close, SearchOutlined } from '@mui/icons-material'
 import { IconButton } from '@mui/material'
 
-import { TextField } from '../../common/TextField'
+import { TextField } from '../../../common/TextField'
 import { useLocalContext } from '../hooks/useLocalContext'
 
 export const SearchField = () => {

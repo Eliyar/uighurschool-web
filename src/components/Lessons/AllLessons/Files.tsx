@@ -1,8 +1,8 @@
 import { InfoOutlined } from '@mui/icons-material'
 import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
 
-import { Button } from '../common/Button'
-import { FileItem } from '../common/FileItem/FileItem'
+import { Button } from '../../common/Button'
+import { FileItem } from '../../common/FileItem/FileItem'
 import { useLocalContext } from './hooks/useLocalContext'
 
 export const Files = () => {

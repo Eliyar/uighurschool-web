@@ -6,7 +6,7 @@ import {
     toggleButtonGroupClasses,
 } from '@mui/material'
 
-import Colors from '../../../colors'
+import Colors from '../../../../colors'
 import { useLocalContext } from '../hooks/useLocalContext'
 
 const Styles = styled(ToggleButtonGroup)`

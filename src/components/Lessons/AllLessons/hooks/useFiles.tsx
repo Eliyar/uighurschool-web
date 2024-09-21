@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
-import { useFiles as useFilesHook } from '../../../hooks/useFiles'
-import { FileModel } from '../../../services/models/File.model'
+import { useFiles as useFilesHook } from '../../../../hooks/useFiles'
+import { FileModel } from '../../../../services/models/File.model'
 import { FiltersHookState } from './useFilters'
 
 export interface FilesHookState {

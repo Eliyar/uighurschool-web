@@ -1,3 +1,9 @@
+import { Stack } from '@mui/material'
+
 export const Send = () => {
-    return <div>Send</div>
+    return (
+        <Stack sx={{ p: 3 }} spacing={3}>
+            Send
+        </Stack>
+    )
 }
