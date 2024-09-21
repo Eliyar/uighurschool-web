@@ -12,7 +12,6 @@ import { LessonsPage } from './components/Pages/LessonsPage'
 import { MainPage } from './components/Pages/MainPage'
 import { SendPage } from './components/Pages/SendPage'
 import { SignInPage } from './components/Pages/SignInPage'
-import { ViewFilePage } from './components/Pages/ViewFilePage'
 import { ViewUrlPage } from './components/Pages/ViewUrlPage'
 import { useRoute } from './hooks/useRoute'
 import { useUser } from './hooks/useUser'
@@ -33,7 +32,6 @@ const AppRoutes = () => {
         authCheckRoute,
         mainRoute,
         classesRoute,
-        filesRoute,
         urlRoute,
     } = useRoute()
     return (
@@ -51,7 +49,6 @@ const AppRoutes = () => {
                 <Route path={lessonsRoute} element={<LessonsPage />} />
                 <Route path={sendRoute} element={<SendPage />} />
                 <Route path={classesRoute} element={<ClassesPage />} />
-                <Route path={filesRoute} element={<ViewFilePage />} />
                 <Route path={urlRoute} element={<ViewUrlPage />} />
                 <Route
                     path={`${mainRoute}`}
