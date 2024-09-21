@@ -5,7 +5,7 @@ import { Outlet } from 'react-router'
 import { getClasses } from '../../controllers/get-classes'
 import { getFiles } from '../../controllers/get-files'
 import { getStudents } from '../../controllers/get-students'
-import { SideBar } from '../common/SideBar/SideBar'
+import { NavBar } from '../common/NavBar/NavBar'
 
 export const Main = () => {
     useEffect(() => {
@@ -27,8 +27,8 @@ export const Main = () => {
             >
                 <Paper sx={{ width: '100%' }}>
                     <Stack direction="row">
-                        <SideBar />
                         <Stack sx={{ flex: '1 1 100%' }}>
+                            <NavBar />
                             <Outlet />
                         </Stack>
                     </Stack>

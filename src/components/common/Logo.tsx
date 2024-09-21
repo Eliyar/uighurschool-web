@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Styles = styled('img')`
-    width: 60px;
+    width: 50px;
     height: auto;
 `
 
