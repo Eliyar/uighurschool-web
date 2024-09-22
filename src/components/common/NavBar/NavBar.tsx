@@ -38,7 +38,7 @@ export const NavBar = () => {
 }
 
 const NavItems = () => {
-    const { fileId } = useParams<{ fileId: string }>()
+    const { id } = useParams<{ id: string }>()
     const { navMain, navViewUrl } = useRoute()
     const { navItems } = useNavItems()
 
@@ -50,7 +50,7 @@ const NavItems = () => {
             sx={{ flex: '1 1 100%', width: '100px', minWidth: '100px' }}
         >
             {navItems.map((navItem) => {
-                const isActive = navItem.id === fileId
+                const isActive = navItem.id === id
 
                 return (
                     <Tab
