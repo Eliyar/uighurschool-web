@@ -14,11 +14,13 @@ import { ActionType, reducer } from './reducer'
 
 export interface FormFields {
     name: TextField
+    wheelsUrl: TextField
     classObj: Class | null
 }
 
 export const initialForm: FormFields = {
     name: initialField as TextField,
+    wheelsUrl: initialField as TextField,
     classObj: null,
 }
 
@@ -85,10 +87,12 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
                         return false
                     }
 
-                    const classes = getBySimilarName(value as string)
-                    if (classes?.length > 0) {
-                        updateFieldError(fieldKey, 'Class already exists')
-                        return false
+                    if (!isUpdating) {
+                        const classes = getBySimilarName(value as string)
+                        if (classes?.length > 0) {
+                            updateFieldError(fieldKey, 'Class already exists')
+                            return false
+                        }
                     }
 
                     return true
@@ -99,7 +103,7 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
                 }
             }
         },
-        [form, updateFieldError, getBySimilarName]
+        [form, isUpdating, updateFieldError, getBySimilarName]
     )
 
     const validateForm = useCallback(() => {
@@ -163,14 +167,19 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
 
 const toClass = (form: FormFields): Class => {
     const name = form.name.value as string
+    const wheelsUrl = form.wheelsUrl.value as string
 
     const classObj = new Class(name)
+    classObj.wheelsUrl = wheelsUrl
     return classObj
 }
 
 const toUpdates = (form: FormFields): Partial<Class> => {
     const name = form.name.value as string
+    const wheelsUrl = form.wheelsUrl.value as string
+
     return {
         name,
+        wheelsUrl,
     }
 }

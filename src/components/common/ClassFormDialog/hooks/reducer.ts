@@ -44,6 +44,7 @@ export const reducer = (form: FormFields, action: any): FormFields => {
                 draft.classObj = classObj
                 if (classObj) {
                     draft.name.value = classObj.name
+                    draft.wheelsUrl.value = classObj.wheelsUrl ?? ''
                 }
                 break
             }
