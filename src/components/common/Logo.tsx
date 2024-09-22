@@ -1,8 +1,9 @@
-import { styled, SxProps, Theme } from '@mui/material'
+import { ButtonBase, styled, SxProps, Theme } from '@mui/material'
 
 interface Props {
     className?: string
     sx?: SxProps<Theme>
+    onClick?(): void
 }
 
 const Styles = styled('img')`
@@ -10,12 +11,17 @@ const Styles = styled('img')`
     height: auto;
 `
 
-export const Logo = ({ sx }: Props) => {
+export const Logo = ({ sx, onClick }: Props) => {
     return (
-        <Styles
-            sx={{ ...sx }}
-            src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`}
-            alt="Logo"
-        />
+        <ButtonBase sx={{ borderRadius: '13px' }}>
+            <Styles
+                src={`${process.env.PUBLIC_URL}/assets/images/logo.svg`}
+                alt="Logo"
+                onClick={() => {
+                    onClick?.()
+                }}
+                sx={{ ...sx, cursor: onClick ? 'pointer' : 'default' }}
+            />
+        </ButtonBase>
     )
 }

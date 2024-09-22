@@ -16,11 +16,11 @@ const Styles = styled(Stack)`
 `
 
 export const NavBar = () => {
-    const { lessonsRoute } = useRoute()
+    const { lessonsRoute, navLessons } = useRoute()
 
     return (
         <Styles direction="row" alignItems="center" spacing={1} padding={1}>
-            <Logo />
+            <Logo onClick={() => navLessons()} />
             <Divider orientation="vertical" />
             <NavLink to={lessonsRoute}>
                 {({ isActive }) => (
