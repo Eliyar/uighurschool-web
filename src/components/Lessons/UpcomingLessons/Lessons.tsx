@@ -1,5 +1,5 @@
 import { InfoOutlined } from '@mui/icons-material'
-import { Alert, Button, Divider, Grid, Stack } from '@mui/material'
+import { Alert, Button, Grid, Stack } from '@mui/material'
 import { useCallback, useMemo, useState } from 'react'
 
 import { openLesson } from '../../../controllers/open-lesson'
@@ -30,28 +30,22 @@ export const Lessons = () => {
     }
 
     return (
-        <Stack>
+        <Stack spacing={6}>
             {groupedLessonsEntries
                 .slice(0, visibleGroups)
                 .map(([date, lessons]) => (
-                    <Stack key={date} spacing={4}>
-                        <Grid
-                            container
-                            spacing={2}
-                            sx={{ width: '100%', marginBottom: 2 }}
-                        >
-                            {lessons.map((lesson) => (
-                                <Grid item xs={3} key={lesson.id}>
-                                    <LessonItem
-                                        lesson={lesson}
-                                        onView={onView}
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-
-                        <Divider />
-                    </Stack>
+                    <Grid
+                        key={date}
+                        container
+                        spacing={2}
+                        sx={{ width: '100%' }}
+                    >
+                        {lessons.map((lesson) => (
+                            <Grid item xs={3} key={lesson.id}>
+                                <LessonItem lesson={lesson} onView={onView} />
+                            </Grid>
+                        ))}
+                    </Grid>
                 ))}
 
             {visibleGroups < groupedLessonsEntries.length && (
