@@ -26,7 +26,10 @@ export interface FormFields {
 
 export const initialForm: FormFields = {
     subject: { ...initialField, value: '' },
-    message: { ...initialField, value: '' },
+    message: {
+        ...initialField,
+        value: process.env.REACT_APP_DEFAULT_EMAIL_MESSAGE ?? '',
+    },
     students: { ...initialField, value: [] },
     files: { ...initialField, value: [] },
     classId: { ...initialField, value: '' },
