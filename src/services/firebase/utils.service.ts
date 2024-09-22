@@ -1,3 +1,5 @@
+import { Lesson } from '../models/Lesson.model'
+
 const uuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
         /[xy]/g,
@@ -33,10 +35,23 @@ const getFileFromUrl = async (fileName: string, url: string): Promise<File> => {
     return new File([blob], fileName, { type: blob.type })
 }
 
+// Suggest the next lesson name in the format "Lesson 1 - Grade 1"
+const suggestNextLessonName = (previousLesson: Lesson) => {
+    const previousLessonName = previousLesson.name
+    const regex = /^Lesson (\d+)( - .*)?$/
+    const match = previousLessonName.match(regex)
+    if (match) {
+        const number = parseInt(match[1])
+        return `Lesson ${number + 1}${match[2] ?? ''}`
+    }
+    return ''
+}
+
 export const utilsService = {
     uuid,
     removeFileExt,
     formatFileSize,
     openUrl,
     getFileFromUrl,
+    suggestNextLessonName,
 }

@@ -16,9 +16,18 @@ export const useLessons = () => {
         [lessons]
     )
 
+    const getLastLessonForClassId = useCallback(
+        (classId: string): Lesson | undefined => {
+            const lessonsSorted = Lesson.sort(lessons)
+            return lessonsSorted.find((lesson) => lesson.classId === classId)
+        },
+        [lessons]
+    )
+
     return {
         lessons,
         lessonsGrouped,
         getLesson,
+        getLastLessonForClassId,
     }
 }

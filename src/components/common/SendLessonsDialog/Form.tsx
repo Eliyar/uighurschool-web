@@ -1,6 +1,8 @@
 import { Stack, styled, SxProps, Theme, Typography } from '@mui/material'
 import { useCallback } from 'react'
 
+import { useLessons } from '../../../hooks/useLessons'
+import { utilsService } from '../../../services/firebase/utils.service'
 import { FileModel } from '../../../services/models/File.model'
 import { Student } from '../../../services/models/Student.model'
 import { Button } from '../Button'
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export const Form = ({ sx, onClose }: Props) => {
+    const { getLastLessonForClassId } = useLessons()
     const {
         form,
         isLoading,
@@ -49,7 +52,20 @@ export const Form = ({ sx, onClose }: Props) => {
                     error={form.students.error}
                     onChange={(students, classId) => {
                         setStudents(students)
-                        updateField('classId', classId ?? null)
+
+                        if (classId) {
+                            updateField('classId', classId)
+
+                            // Suggest the next lesson name based on the last lesson for the class
+                            const lastLesson = getLastLessonForClassId(classId)
+                            if (lastLesson) {
+                                const suggestedLessonName =
+                                    utilsService.suggestNextLessonName(
+                                        lastLesson
+                                    )
+                                updateField('subject', suggestedLessonName)
+                            }
+                        }
                     }}
                     onBlur={() => validateField('students')}
                 />

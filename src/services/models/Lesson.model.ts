@@ -17,6 +17,16 @@ export class Lesson {
         this.createdAt = new Date().toISOString()
     }
 
+    static sort(lessons: Lesson[]) {
+        return (
+            [...lessons]?.sort(
+                (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+            ) ?? []
+        )
+    }
+
     static groupByDate(lessons: Lesson[]) {
         return lessons.reduce((acc: { [key: string]: Lesson[] }, lesson) => {
             const date = moment(lesson.createdAt).format('YYYY-MM-DD')
