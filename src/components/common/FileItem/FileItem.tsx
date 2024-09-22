@@ -23,7 +23,10 @@ export const FileItem = ({ file, hideMenu, onView }: Props) => {
     const canView = !!file.downloadUrl
 
     return (
-        <ButtonBase component={Box} sx={{ display: 'block' }}>
+        <ButtonBase
+            component={Box}
+            sx={{ display: 'block', borderRadius: '6px' }}
+        >
             <Styles
                 direction="row"
                 alignItems="flex-start"

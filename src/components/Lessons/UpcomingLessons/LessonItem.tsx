@@ -1,0 +1,136 @@
+import {
+    Box,
+    ButtonBase,
+    Chip,
+    ListItem,
+    ListItemIcon,
+    Stack,
+    styled,
+    Typography,
+} from '@mui/material'
+import { useMemo } from 'react'
+
+import Colors from '../../../colors'
+import { useClasses } from '../../../hooks/useClasses'
+import { useFiles } from '../../../hooks/useFiles'
+import { FileModel } from '../../../services/models/File.model'
+import { Lesson } from '../../../services/models/Lesson.model'
+
+interface Props {
+    lesson: Lesson
+    onView?: (lesson: Lesson) => void
+}
+
+const Styles = styled(Stack)`
+    padding: 12px;
+    border: 1px solid ${Colors.BORDER_COLOR};
+    border-radius: 8px;
+`
+
+export const LessonItem = ({ lesson, onView }: Props) => {
+    const { getClass } = useClasses()
+    const { getById } = useFiles()
+
+    const classObj = useMemo(
+        () => (lesson.classId ? getClass(lesson.classId) : undefined),
+        [lesson.classId, getClass]
+    )
+
+    const files = useMemo(() => {
+        return lesson.fileIds?.reduce((acc, fileId) => {
+            const file = getById(fileId)
+            if (file) acc.push(file)
+            return acc
+        }, [] as FileModel[])
+    }, [lesson.fileIds, getById])
+
+    return (
+        <ButtonBase
+            component={Box}
+            sx={{ display: 'block', borderRadius: '6px' }}
+        >
+            <Styles
+                spacing={2}
+                onClick={() => {
+                    onView?.(lesson)
+                }}
+            >
+                <Stack
+                    direction="row"
+                    alignItems="flex-start"
+                    spacing={2}
+                    sx={{ flex: '1 1 100%' }}
+                >
+                    <Stack spacing={0.5} sx={{ flex: '1 1 100%' }}>
+                        <Stack
+                            direction="row"
+                            alignItems="flex-start"
+                            justifyContent="space-between"
+                            sx={{ flex: '1 1 100%' }}
+                        >
+                            <Typography
+                                className="truncate-row-2"
+                                variant="h6"
+                                fontWeight={500}
+                            >
+                                {lesson.name}
+                            </Typography>
+                            {classObj && (
+                                <Chip
+                                    label={classObj.name}
+                                    variant="outlined"
+                                    color="success"
+                                    size="small"
+                                    sx={{
+                                        textTransform: 'capitalize',
+                                        fontWeight: 500,
+                                    }}
+                                />
+                            )}
+                        </Stack>
+                    </Stack>
+                </Stack>
+
+                <Stack>
+                    {files.map((file) => (
+                        <FileItem key={file.id} file={file} />
+                    ))}
+                </Stack>
+            </Styles>
+        </ButtonBase>
+    )
+}
+
+const FileItem = ({ file }: { file: FileModel }) => {
+    return (
+        <ListItem sx={{ px: 0, py: 0.5 }}>
+            <Stack direction="row" alignItems="center" gap={2}>
+                {file.tag && (
+                    <ListItemIcon>
+                        <Chip
+                            label={file.tag}
+                            variant="outlined"
+                            color={
+                                file.tag === 'lesson' ? 'primary' : 'warning'
+                            }
+                            size="small"
+                            sx={{
+                                textTransform: 'capitalize',
+                                fontWeight: 500,
+                            }}
+                        />
+                    </ListItemIcon>
+                )}
+                <Stack>
+                    <Typography
+                        className="truncate-row-1"
+                        variant="body2"
+                        fontWeight={500}
+                    >
+                        {file.name}
+                    </Typography>
+                </Stack>
+            </Stack>
+        </ListItem>
+    )
+}

@@ -21,6 +21,7 @@ export interface FormFields {
     message: TextField
     students: StudentsField
     files: FilesField
+    classId: TextField
 }
 
 export const initialForm: FormFields = {
@@ -28,6 +29,7 @@ export const initialForm: FormFields = {
     message: { ...initialField, value: '' },
     students: { ...initialField, value: [] },
     files: { ...initialField, value: [] },
+    classId: { ...initialField, value: '' },
 }
 
 export type FormFieldKeys = keyof FormFields
@@ -146,6 +148,7 @@ export const useForm = (): FormHookState => {
             const subject = form.subject.value as string
             const message = (form.message.value as string) ?? ''
             const files = form.files.value as FileModel[]
+            const classId = (form.classId.value as string) ?? undefined
 
             return sendRequest(
                 sendLessons.bind(null, {
@@ -153,6 +156,7 @@ export const useForm = (): FormHookState => {
                     subject,
                     message,
                     files,
+                    classId,
                 })
             ).then(() => {
                 callback()

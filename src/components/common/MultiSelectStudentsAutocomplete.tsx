@@ -160,7 +160,7 @@ const StudentItem = ({ student }: { student: Student }) => {
                         <Chip
                             label={classObj.name}
                             variant="outlined"
-                            color={'primary'}
+                            color="success"
                             size="small"
                             sx={{
                                 fontWeight: 500,

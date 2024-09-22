@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import { utilsService } from '../firebase/utils.service'
 
 export class Lesson {
@@ -13,5 +15,16 @@ export class Lesson {
         this.classId = classId ?? null
         this.fileIds = fileIds
         this.createdAt = new Date().toISOString()
+    }
+
+    static groupByDate(lessons: Lesson[]) {
+        return lessons.reduce((acc: { [key: string]: Lesson[] }, lesson) => {
+            const date = moment(lesson.createdAt).format('YYYY-MM-DD')
+            if (!acc[date]) {
+                acc[date] = []
+            }
+            acc[date].push(lesson)
+            return acc
+        }, {})
     }
 }

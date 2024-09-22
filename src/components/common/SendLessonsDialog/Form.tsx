@@ -49,8 +49,7 @@ export const Form = ({ sx, onClose }: Props) => {
                     error={form.students.error}
                     onChange={(students, classId) => {
                         setStudents(students)
-
-                        console.log('classId:', classId)
+                        updateField('classId', classId ?? null)
                     }}
                     onBlur={() => validateField('students')}
                 />

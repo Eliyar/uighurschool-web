@@ -6,7 +6,7 @@ import { UpcomingLessons } from './UpcomingLessons/UpcomingLessons'
 
 export const Lessons = () => {
     return (
-        <Stack sx={{ p: 3 }} spacing={3}>
+        <Stack sx={{ p: 3 }} spacing={6}>
             <UpcomingLessons />
 
             <Divider />
