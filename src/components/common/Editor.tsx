@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import StarterKit from '@tiptap/starter-kit'
 import {
     MenuButtonBold,
@@ -10,10 +11,35 @@ import {
 } from 'mui-tiptap'
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 
+import Colors from '../../colors'
+
 interface Props {
     text: string
     onChange: (text: string, html: string) => void
 }
+
+const RichTextEditorStyles = styled(RichTextEditor)`
+    overflow: hidden;
+
+    .MuiTiptap-FieldContainer {
+        &-notchedOutline {
+            border-color: transparent;
+        }
+    }
+
+    .MuiTiptap-MenuBar {
+        &-root {
+            background-color: ${Colors.CONTENT_BACKGROUND_LIGHT};
+            border: 0;
+        }
+    }
+
+    .MuiTiptap-RichTextContent {
+        &-root {
+            background-color: ${Colors.CONTROLLER_BACKGROUND};
+        }
+    }
+`
 
 export const Editor = forwardRef(({ text, onChange }: Props, ref: any) => {
     const rteRef = useRef<RichTextEditorRef>(null)
@@ -28,7 +54,7 @@ export const Editor = forwardRef(({ text, onChange }: Props, ref: any) => {
     }))
 
     return (
-        <RichTextEditor
+        <RichTextEditorStyles
             ref={rteRef}
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
