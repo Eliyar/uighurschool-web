@@ -4,6 +4,7 @@ import { useCallback } from 'react'
 import { Button } from '../Button'
 import { DialogFooter } from '../DialogFooter'
 import { Editor } from '../Editor'
+import { MultiSelectFilesAutocomplete } from '../MultiSelectFilesAutocomplete'
 import { MultiSelectStudentsAutocomplete } from '../MultiSelectStudentsAutocomplete'
 import { TextField } from '../TextField'
 import { useLocalContext } from './hooks/useLocalContext'
@@ -17,7 +18,7 @@ interface Props {
 }
 
 export const Form = ({ sx, onClose }: Props) => {
-    const { form, updateField, setStudents, submit, validateField } =
+    const { form, updateField, setStudents, setFiles, submit, validateField } =
         useLocalContext().form
 
     const onSubmit = useCallback(
@@ -50,16 +51,13 @@ export const Form = ({ sx, onClose }: Props) => {
                 onChange={(value) => updateField('subject', value)}
                 onBlur={() => validateField('subject')}
             />
-            {/* <TextField
-                label="Message"
-                value={(form.message.value as string) ?? ''}
-                error={!!form.message.error}
-                helperText={form.message.error}
-                onChange={(value) => updateField('message', value)}
-                onBlur={() => validateField('message')}
-                multiline
+
+            <MultiSelectFilesAutocomplete
+                label="Lessons"
+                placeholder="Select"
+                files={form.files}
+                onChange={(files) => setFiles(files)}
             />
-             */}
 
             <Editor
                 text={form.message.value as string}

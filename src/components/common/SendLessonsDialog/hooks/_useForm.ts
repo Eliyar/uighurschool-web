@@ -6,6 +6,7 @@ import {
     initialField,
     TextField,
 } from '../../../../lib/field'
+import { FileModel } from '../../../../services/models/File.model'
 import { Student } from '../../../../services/models/Student.model'
 import { ActionType, reducer } from './reducer'
 
@@ -13,20 +14,23 @@ export interface FormFields {
     subject: TextField
     message: TextField
     students: Student[]
+    files: FileModel[]
 }
 
 export const initialForm: FormFields = {
     subject: initialField,
     message: initialField,
     students: [],
+    files: [],
 }
 
-export type FormFieldKeys = keyof Omit<FormFields, 'students'>
+export type FormFieldKeys = keyof Omit<FormFields, 'students' | 'files'>
 
 export interface FormHookState {
     form: FormFields
     updateField(fieldKey: FormFieldKeys, fieldValue: FieldValue): void
     setStudents(students: Student[]): void
+    setFiles(files: FileModel[]): void
     validateField(fieldKey: FormFieldKeys): boolean
     submit(callback: () => void): void
     resetForm(): void
@@ -65,6 +69,13 @@ export const useForm = (): FormHookState => {
         dispatch({
             type: ActionType.SET_STUDENTS,
             payload: { students },
+        })
+    }, [])
+
+    const setFiles = useCallback((files: FileModel[]) => {
+        dispatch({
+            type: ActionType.SET_FILES,
+            payload: { files },
         })
     }, [])
 
@@ -133,6 +144,7 @@ export const useForm = (): FormHookState => {
         updateField,
         validateField,
         setStudents,
+        setFiles,
         submit,
         resetForm,
     }
