@@ -3,6 +3,7 @@ import { useCallback } from 'react'
 
 import { Button } from '../Button'
 import { DialogFooter } from '../DialogFooter'
+import { Editor } from '../Editor'
 import { MultiSelectStudentsAutocomplete } from '../MultiSelectStudentsAutocomplete'
 import { TextField } from '../TextField'
 import { useLocalContext } from './hooks/useLocalContext'
@@ -49,7 +50,7 @@ export const Form = ({ sx, onClose }: Props) => {
                 onChange={(value) => updateField('subject', value)}
                 onBlur={() => validateField('subject')}
             />
-            <TextField
+            {/* <TextField
                 label="Message"
                 value={(form.message.value as string) ?? ''}
                 error={!!form.message.error}
@@ -57,6 +58,12 @@ export const Form = ({ sx, onClose }: Props) => {
                 onChange={(value) => updateField('message', value)}
                 onBlur={() => validateField('message')}
                 multiline
+            />
+             */}
+
+            <Editor
+                text={form.message.value as string}
+                onChange={(_, html) => updateField('message', html)}
             />
 
             <DialogFooter

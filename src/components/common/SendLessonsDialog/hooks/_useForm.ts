@@ -7,18 +7,15 @@ import {
     TextField,
 } from '../../../../lib/field'
 import { Student } from '../../../../services/models/Student.model'
-import { validationService } from '../../../../services/validation.service'
 import { ActionType, reducer } from './reducer'
 
 export interface FormFields {
-    email: TextField
     subject: TextField
     message: TextField
     students: Student[]
 }
 
 export const initialForm: FormFields = {
-    email: initialField,
     subject: initialField,
     message: initialField,
     students: [],
@@ -76,18 +73,6 @@ export const useForm = (): FormHookState => {
             const value = form[fieldKey].value
 
             switch (fieldKey) {
-                case 'email': {
-                    if (!value) {
-                        updateFieldError(fieldKey, 'This field is required')
-                        return false
-                    }
-                    if (!validationService.isEmail(value as string)) {
-                        updateFieldError(fieldKey, 'Invalid email address')
-                        return false
-                    }
-                    return true
-                }
-
                 case 'subject':
                 case 'message': {
                     if (!value) {
@@ -122,10 +107,19 @@ export const useForm = (): FormHookState => {
             }
 
             // TODO: Implement send lessons logic here
+            const students = form.students
+            const subject = form.subject.value as string
+            const message = form.message.value as string
+
+            console.log({
+                students,
+                subject,
+                message,
+            })
 
             callback()
         },
-        [validateForm]
+        [validateForm, form]
     )
 
     const resetForm = useCallback(() => {
