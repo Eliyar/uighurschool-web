@@ -2,15 +2,18 @@ import {
     Box,
     ButtonBase,
     Chip,
+    Divider,
     ListItem,
     ListItemIcon,
     Stack,
     styled,
     Typography,
 } from '@mui/material'
+import moment from 'moment'
 import { useMemo } from 'react'
 
 import Colors from '../../../colors'
+import { DATE_FORMAT } from '../../../constants'
 import { useClasses } from '../../../hooks/useClasses'
 import { useFiles } from '../../../hooks/useFiles'
 import { FileModel } from '../../../services/models/File.model'
@@ -54,7 +57,7 @@ export const LessonItem = ({ lesson, onView }: Props) => {
             sx={{ display: 'block', borderRadius: '6px' }}
         >
             <Styles
-                spacing={2}
+                spacing={1.5}
                 onClick={() => {
                     onView?.(lesson, files)
                 }}
@@ -92,8 +95,14 @@ export const LessonItem = ({ lesson, onView }: Props) => {
                                 />
                             )}
                         </Stack>
+
+                        <Typography variant="body2" color="text.secondary">
+                            {moment(lesson.createdAt).format(DATE_FORMAT)}
+                        </Typography>
                     </Stack>
                 </Stack>
+
+                <Divider />
 
                 <Stack>
                     {files.map((file) => (

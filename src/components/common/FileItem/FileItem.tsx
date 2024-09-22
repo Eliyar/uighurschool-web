@@ -79,7 +79,7 @@ export const FileItem = ({ file, hideMenu, onView }: Props) => {
                         <Typography
                             className="truncate-row-2"
                             variant="body2"
-                            color="secondary"
+                            color="text.secondary"
                         >
                             {moment(file.createdAt).format(DATE_FORMAT)}
                         </Typography>
