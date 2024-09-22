@@ -1,5 +1,14 @@
 import { Close, Home } from '@mui/icons-material'
-import { Divider, IconButton, Stack, styled, Tab, Tabs } from '@mui/material'
+import {
+    ButtonBase,
+    Divider,
+    IconButton,
+    Stack,
+    styled,
+    Tab,
+    Tabs,
+    Typography,
+} from '@mui/material'
 import { useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 
@@ -22,8 +31,20 @@ export const NavBar = () => {
     const { lessonsRoute, navLessons } = useRoute()
 
     return (
-        <Styles direction="row" alignItems="center" spacing={1} padding={1}>
-            <Logo onClick={() => navLessons()} />
+        <Styles direction="row" alignItems="center" spacing={2} padding={1}>
+            <ButtonBase onClick={() => navLessons()}>
+                <Stack direction="row" alignItems="center" spacing={1}>
+                    <Logo />
+                    <Typography
+                        variant="body1"
+                        fontWeight="bold"
+                        color="primary"
+                        noWrap
+                    >
+                        Uighur School
+                    </Typography>
+                </Stack>
+            </ButtonBase>
             <Divider orientation="vertical" />
             <NavLink to={lessonsRoute}>
                 {({ isActive }) => (

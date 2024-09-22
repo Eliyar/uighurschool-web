@@ -1,4 +1,4 @@
-import { EmailOutlined } from '@mui/icons-material'
+import { SchoolOutlined } from '@mui/icons-material'
 import { Stack, Typography } from '@mui/material'
 
 import { useRoute } from '../../../../hooks/useRoute'
@@ -23,7 +23,7 @@ export const ActionBar = () => {
                     variant="outlined"
                     label="Manage Classes"
                     size="small"
-                    startIcon={<EmailOutlined />}
+                    startIcon={<SchoolOutlined />}
                     onClick={() => navClasses()}
                     sx={{ px: 3 }}
                 />
