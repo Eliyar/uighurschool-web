@@ -18,7 +18,7 @@ import { Lesson } from '../../../services/models/Lesson.model'
 
 interface Props {
     lesson: Lesson
-    onView?: (lesson: Lesson) => void
+    onView?: (lesson: Lesson, files: FileModel[]) => void
 }
 
 const Styles = styled(Stack)`
@@ -37,11 +37,15 @@ export const LessonItem = ({ lesson, onView }: Props) => {
     )
 
     const files = useMemo(() => {
-        return lesson.fileIds?.reduce((acc, fileId) => {
+        let _files = lesson.fileIds?.reduce((acc, fileId) => {
             const file = getById(fileId)
             if (file) acc.push(file)
             return acc
         }, [] as FileModel[])
+
+        _files = FileModel.sort(_files)
+
+        return _files
     }, [lesson.fileIds, getById])
 
     return (
@@ -52,7 +56,7 @@ export const LessonItem = ({ lesson, onView }: Props) => {
             <Styles
                 spacing={2}
                 onClick={() => {
-                    onView?.(lesson)
+                    onView?.(lesson, files)
                 }}
             >
                 <Stack

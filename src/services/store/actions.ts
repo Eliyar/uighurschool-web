@@ -209,3 +209,11 @@ export class RemoveNavItem extends Action {
         })
     }
 }
+
+export class RemoveAllNavItems extends Action {
+    static readonly type: string = '[NavItems] Remove All'
+
+    static dispatch() {
+        storeService.dispatch({ type: RemoveAllNavItems.type })
+    }
+}

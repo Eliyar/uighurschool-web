@@ -25,6 +25,21 @@ export class FileModel {
         return model
     }
 
+    static sort = (files: FileModel[]): FileModel[] => {
+        const groupedByTag = files.reduce((acc, file) => {
+            const tag: any = file.tag ?? ''
+            if (!acc[tag]) acc[tag] = []
+            acc[tag].push(file)
+            return acc
+        }, {} as Record<string, FileModel[]>)
+
+        const sortedByName = Object.values(groupedByTag).map((files) =>
+            files.sort((a, b) => a.name.localeCompare(b.name))
+        )
+
+        return sortedByName.flat()
+    }
+
     static getTag = (fileName: string): FileTag => {
         if (/(lesson)/i.test(fileName)) {
             return 'lesson'

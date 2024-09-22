@@ -20,3 +20,9 @@ export const processRemoveNavItem = (state: State, action: Action) => {
         draft.navItems = draft.navItems.filter((u) => u.id !== navItem.id)
     })
 }
+
+export const processRemoveAllNavItems = (state: State) => {
+    return produce(state, (draft) => {
+        draft.navItems = []
+    })
+}
