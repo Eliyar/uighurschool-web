@@ -1,4 +1,4 @@
-import { Stack, SxProps, Theme } from '@mui/material'
+import { Stack, styled, SxProps, Theme, Typography } from '@mui/material'
 import { useCallback } from 'react'
 
 import { Button } from '../Button'
@@ -32,37 +32,46 @@ export const Form = ({ sx, onClose }: Props) => {
 
     return (
         <Stack sx={sx} spacing={4}>
-            <MultiSelectStudentsAutocomplete
-                label="Students"
-                placeholder="Select"
-                students={form.students}
-                onChange={(students, classId) => {
-                    setStudents(students)
+            <Stack spacing={0.5}>
+                <Label>Students</Label>
+                <MultiSelectStudentsAutocomplete
+                    placeholder="Select"
+                    students={form.students}
+                    onChange={(students, classId) => {
+                        setStudents(students)
 
-                    console.log('classId:', classId)
-                }}
-            />
+                        console.log('classId:', classId)
+                    }}
+                />
+            </Stack>
 
-            <MultiSelectFilesAutocomplete
-                label="Lessons"
-                placeholder="Select"
-                files={form.files}
-                onChange={(files) => setFiles(files)}
-            />
+            <Stack spacing={0.5}>
+                <Label>Lessons</Label>
+                <MultiSelectFilesAutocomplete
+                    placeholder="Select"
+                    files={form.files}
+                    onChange={(files) => setFiles(files)}
+                />
+            </Stack>
 
-            <TextField
-                label="Subject"
-                value={(form.subject.value as string) ?? ''}
-                error={!!form.subject.error}
-                helperText={form.subject.error}
-                onChange={(value) => updateField('subject', value)}
-                onBlur={() => validateField('subject')}
-            />
+            <Stack spacing={0.5}>
+                <Label>Subject</Label>
+                <TextField
+                    value={(form.subject.value as string) ?? ''}
+                    error={!!form.subject.error}
+                    helperText={form.subject.error}
+                    onChange={(value) => updateField('subject', value)}
+                    onBlur={() => validateField('subject')}
+                />
+            </Stack>
 
-            <Editor
-                text={form.message.value as string}
-                onChange={(_, html) => updateField('message', html)}
-            />
+            <Stack spacing={0.5}>
+                <Label>Message</Label>
+                <Editor
+                    text={form.message.value as string}
+                    onChange={(_, html) => updateField('message', html)}
+                />
+            </Stack>
 
             <DialogFooter
                 actionNode={<Button label="Send" onClick={onSubmit} />}
@@ -71,3 +80,8 @@ export const Form = ({ sx, onClose }: Props) => {
         </Stack>
     )
 }
+
+const Label = styled(Typography)`
+    font-size: 14px;
+    font-weight: 500;
+`
