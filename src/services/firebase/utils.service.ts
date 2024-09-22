@@ -27,9 +27,16 @@ const openUrl = (url: string) => {
     window.open(url, '_blank')
 }
 
+const getFileFromUrl = async (fileName: string, url: string): Promise<File> => {
+    const res = await fetch(url)
+    const blob = await res.blob()
+    return new File([blob], fileName, { type: blob.type })
+}
+
 export const utilsService = {
     uuid,
     removeFileExt,
     formatFileSize,
     openUrl,
+    getFileFromUrl,
 }

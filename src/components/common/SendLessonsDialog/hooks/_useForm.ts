@@ -101,7 +101,6 @@ export const useForm = (): FormHookState => {
 
             switch (fieldKey) {
                 case 'subject':
-                case 'message':
                     if (!field.value) {
                         isValid = false
                         errorMessage = 'This field is required'
@@ -143,17 +142,10 @@ export const useForm = (): FormHookState => {
                 return
             }
 
-            // TODO: Implement send lessons logic here
             const students = form.students.value as Student[]
             const subject = form.subject.value as string
-            const message = form.message.value as string
+            const message = (form.message.value as string) ?? ''
             const files = form.files.value as FileModel[]
-
-            console.log({
-                students,
-                subject,
-                message,
-            })
 
             return sendRequest(
                 sendLessons.bind(null, {
