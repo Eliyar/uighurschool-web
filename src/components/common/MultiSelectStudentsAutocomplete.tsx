@@ -14,6 +14,7 @@ import { useMemo, useState } from 'react'
 
 import { useClasses } from '../../hooks/useClasses'
 import { useStudents } from '../../hooks/useStudents'
+import { FieldError } from '../../lib/field'
 import { Class } from '../../services/models/Class.model'
 import { Student } from '../../services/models/Student.model'
 
@@ -22,7 +23,9 @@ interface Props {
     placeholder?: string
     students: Student[]
     sx?: SxProps<Theme>
+    error?: FieldError
     onChange(students: Student[], classId?: string): void
+    onBlur?(): void
 }
 
 export const MultiSelectStudentsAutocomplete = ({
@@ -30,7 +33,9 @@ export const MultiSelectStudentsAutocomplete = ({
     placeholder,
     students,
     sx,
+    error,
     onChange,
+    onBlur,
 }: Props) => {
     const { options, optionsSelected } = useView(students)
     const [inputValue, setInputValue] = useState<string>('')
@@ -60,12 +65,15 @@ export const MultiSelectStudentsAutocomplete = ({
                 onChange(uniqueSelectedStudents, classId)
             }}
             onInputChange={(_, value) => setInputValue(value)}
+            onBlur={() => onBlur?.()}
             renderInput={(params) => (
                 <TextFieldStyles
                     {...params}
                     size="small"
                     label={label}
                     placeholder={placeholder}
+                    error={!!error}
+                    helperText={error}
                 />
             )}
             renderOption={(props, option) => (

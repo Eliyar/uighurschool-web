@@ -18,7 +18,7 @@ export interface FormFields {
 }
 
 export const initialForm: FormFields = {
-    name: initialField,
+    name: initialField as TextField,
     classObj: null,
 }
 

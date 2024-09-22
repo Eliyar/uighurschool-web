@@ -20,9 +20,9 @@ export interface FormFields {
 }
 
 export const initialForm: FormFields = {
-    name: initialField,
-    uighurName: initialField,
-    email: initialField,
+    name: initialField as TextField,
+    uighurName: initialField as TextField,
+    email: initialField as TextField,
     student: null,
 }
 

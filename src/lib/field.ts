@@ -1,18 +1,21 @@
 /* eslint-disable @typescript-eslint/no-empty-object-type */
 
-/* eslint-disable @typescript-eslint/no-empty-interface */
-export interface Field {
+import { FileModel } from '../services/models/File.model'
+import { Student } from '../services/models/Student.model'
+
+export interface Field<T extends FieldValue = FieldValue> {
     id?: string
-    value: FieldValue
+    value: T
     error: FieldError
 }
 
 export type FieldValue =
     | TextFieldValue
-    | FileFieldValue
+    | FilesFieldValue
     | NumberFieldValue
     | BooleanFieldValue
     | DateFieldValue
+    | StudentsFieldValue
 
 export type FieldError = string | null
 
@@ -23,14 +26,16 @@ export const initialField: Field = {
     error: initialFieldError,
 }
 
-export interface TextField extends Field {}
-export interface FileField extends Field {}
-export interface NumberField extends Field {}
-export interface DateField extends Field {}
-export interface BooleanField extends Field {}
+export interface TextField extends Field<TextFieldValue> {}
+export interface FilesField extends Field<FilesFieldValue> {}
+export interface NumberField extends Field<NumberFieldValue> {}
+export interface DateField extends Field<DateFieldValue> {}
+export interface BooleanField extends Field<BooleanFieldValue> {}
+export interface StudentsField extends Field<StudentsFieldValue> {}
 
 export type TextFieldValue = string | null
-export type FileFieldValue = File | null
+export type FilesFieldValue = FileModel[] | null
 export type NumberFieldValue = number | null
 export type DateFieldValue = Date | null
 export type BooleanFieldValue = boolean | null
+export type StudentsFieldValue = Student[] | null

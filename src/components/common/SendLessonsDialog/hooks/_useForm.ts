@@ -1,9 +1,15 @@
 import { useCallback, useReducer } from 'react'
 
+import { sendLessons } from '../../../../controllers/send-lessons'
+import { useHttp } from '../../../../hooks/useHttp'
 import {
     FieldError,
     FieldValue,
+    FilesField,
+    FilesFieldValue,
     initialField,
+    StudentsField,
+    StudentsFieldValue,
     TextField,
 } from '../../../../lib/field'
 import { FileModel } from '../../../../services/models/File.model'
@@ -13,22 +19,26 @@ import { ActionType, reducer } from './reducer'
 export interface FormFields {
     subject: TextField
     message: TextField
-    students: Student[]
-    files: FileModel[]
+    students: StudentsField
+    files: FilesField
 }
 
 export const initialForm: FormFields = {
-    subject: initialField,
-    message: initialField,
-    students: [],
-    files: [],
+    subject: { ...initialField, value: '' },
+    message: { ...initialField, value: '' },
+    students: { ...initialField, value: [] },
+    files: { ...initialField, value: [] },
 }
 
-export type FormFieldKeys = keyof Omit<FormFields, 'students' | 'files'>
+export type FormFieldKeys = keyof FormFields
 
 export interface FormHookState {
     form: FormFields
-    updateField(fieldKey: FormFieldKeys, fieldValue: FieldValue): void
+    isLoading: boolean
+    updateField(
+        fieldKey: FormFieldKeys,
+        fieldValue: FieldValue | StudentsFieldValue | FilesFieldValue
+    ): void
     setStudents(students: Student[]): void
     setFiles(files: FileModel[]): void
     validateField(fieldKey: FormFieldKeys): boolean
@@ -38,9 +48,13 @@ export interface FormHookState {
 
 export const useForm = (): FormHookState => {
     const [form, dispatch] = useReducer(reducer, initialForm)
+    const { sendRequest, isLoading } = useHttp()
 
     const updateField = useCallback(
-        (fieldKey: FormFieldKeys, fieldValue: FieldValue) => {
+        (
+            fieldKey: FormFieldKeys,
+            fieldValue: FieldValue | StudentsFieldValue | FilesFieldValue
+        ) => {
             dispatch({
                 type: ActionType.UPDATE_FIELD,
                 payload: {
@@ -81,31 +95,43 @@ export const useForm = (): FormHookState => {
 
     const validateField = useCallback(
         (fieldKey: FormFieldKeys) => {
-            const value = form[fieldKey].value
+            const field = form[fieldKey]
+            let isValid = true
+            let errorMessage = ''
 
             switch (fieldKey) {
                 case 'subject':
-                case 'message': {
-                    if (!value) {
-                        updateFieldError(fieldKey, 'This field is required')
-                        return false
+                case 'message':
+                    if (!field.value) {
+                        isValid = false
+                        errorMessage = 'This field is required'
                     }
-                    return true
-                }
-
-                default: {
-                    return true
-                }
+                    break
+                case 'students':
+                    if (!field.value || field.value.length === 0) {
+                        isValid = false
+                        errorMessage = 'At least one student must be selected'
+                    }
+                    break
+                case 'files':
+                    if (!field.value || field.value.length === 0) {
+                        isValid = false
+                        errorMessage = 'At least one file must be selected'
+                    }
+                    break
             }
+
+            if (!isValid) {
+                updateFieldError(fieldKey, errorMessage)
+            }
+
+            return isValid
         },
         [form, updateFieldError]
     )
 
     const validateForm = useCallback(() => {
         const isValid = Object.keys(form).every((fieldKey) => {
-            if (fieldKey === 'students') {
-                return form.students.length > 0
-            }
             return validateField(fieldKey as FormFieldKeys)
         })
         return isValid
@@ -118,9 +144,10 @@ export const useForm = (): FormHookState => {
             }
 
             // TODO: Implement send lessons logic here
-            const students = form.students
+            const students = form.students.value as Student[]
             const subject = form.subject.value as string
             const message = form.message.value as string
+            const files = form.files.value as FileModel[]
 
             console.log({
                 students,
@@ -128,9 +155,18 @@ export const useForm = (): FormHookState => {
                 message,
             })
 
-            callback()
+            return sendRequest(
+                sendLessons.bind(null, {
+                    students,
+                    subject,
+                    message,
+                    files,
+                })
+            ).then(() => {
+                callback()
+            })
         },
-        [validateForm, form]
+        [validateForm, form, sendRequest]
     )
 
     const resetForm = useCallback(() => {
@@ -141,6 +177,7 @@ export const useForm = (): FormHookState => {
 
     return {
         form,
+        isLoading,
         updateField,
         validateField,
         setStudents,

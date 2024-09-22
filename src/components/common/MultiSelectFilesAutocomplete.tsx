@@ -15,22 +15,27 @@ import { useMemo, useState } from 'react'
 
 import { DATE_FORMAT } from '../../constants'
 import { useFiles } from '../../hooks/useFiles'
+import { FieldError } from '../../lib/field'
 import { FileModel } from '../../services/models/File.model'
 
 interface Props {
     label?: string
     placeholder?: string
     files: FileModel[]
+    error?: FieldError
     sx?: SxProps<Theme>
     onChange(files: FileModel[]): void
+    onBlur?(): void
 }
 
 export const MultiSelectFilesAutocomplete = ({
     label,
     placeholder,
     files,
+    error,
     sx,
     onChange,
+    onBlur,
 }: Props) => {
     const { options, optionsSelected } = useView(files)
     const [inputValue, setInputValue] = useState<string>('')
@@ -56,6 +61,7 @@ export const MultiSelectFilesAutocomplete = ({
 
                 onChange(uniqueSelectedFiles)
             }}
+            onBlur={() => onBlur?.()}
             onInputChange={(_, value) => setInputValue(value)}
             renderInput={(params) => (
                 <TextFieldStyles
@@ -63,6 +69,8 @@ export const MultiSelectFilesAutocomplete = ({
                     size="small"
                     label={label}
                     placeholder={placeholder}
+                    error={!!error}
+                    helperText={error}
                 />
             )}
             renderOption={(props, option) => (

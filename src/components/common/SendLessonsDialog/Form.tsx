@@ -1,6 +1,8 @@
 import { Stack, styled, SxProps, Theme, Typography } from '@mui/material'
 import { useCallback } from 'react'
 
+import { FileModel } from '../../../services/models/File.model'
+import { Student } from '../../../services/models/Student.model'
 import { Button } from '../Button'
 import { DialogFooter } from '../DialogFooter'
 import { Editor } from '../Editor'
@@ -18,8 +20,15 @@ interface Props {
 }
 
 export const Form = ({ sx, onClose }: Props) => {
-    const { form, updateField, setStudents, setFiles, submit, validateField } =
-        useLocalContext().form
+    const {
+        form,
+        isLoading,
+        updateField,
+        setStudents,
+        setFiles,
+        submit,
+        validateField,
+    } = useLocalContext().form
 
     const onSubmit = useCallback(
         (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,12 +45,14 @@ export const Form = ({ sx, onClose }: Props) => {
                 <Label>Students</Label>
                 <MultiSelectStudentsAutocomplete
                     placeholder="Select"
-                    students={form.students}
+                    students={form.students.value as Student[]}
+                    error={form.students.error}
                     onChange={(students, classId) => {
                         setStudents(students)
 
                         console.log('classId:', classId)
                     }}
+                    onBlur={() => validateField('students')}
                 />
             </Stack>
 
@@ -49,8 +60,10 @@ export const Form = ({ sx, onClose }: Props) => {
                 <Label>Lessons</Label>
                 <MultiSelectFilesAutocomplete
                     placeholder="Select"
-                    files={form.files}
+                    files={form.files.value as FileModel[]}
+                    error={form.files.error}
                     onChange={(files) => setFiles(files)}
+                    onBlur={() => validateField('files')}
                 />
             </Stack>
 
@@ -74,7 +87,13 @@ export const Form = ({ sx, onClose }: Props) => {
             </Stack>
 
             <DialogFooter
-                actionNode={<Button label="Send" onClick={onSubmit} />}
+                actionNode={
+                    <Button
+                        isLoading={isLoading}
+                        label="Send"
+                        onClick={onSubmit}
+                    />
+                }
                 onClose={onClose}
             />
         </Stack>

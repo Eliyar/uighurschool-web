@@ -1,6 +1,12 @@
 import { produce } from 'immer'
 
-import { FieldError, FieldValue } from '../../../../lib/field'
+import {
+    FieldError,
+    FieldValue,
+    FilesFieldValue,
+    StudentsFieldValue,
+    TextFieldValue,
+} from '../../../../lib/field'
 import { FileModel } from '../../../../services/models/File.model'
 import { Student } from '../../../../services/models/Student.model'
 import { FormFieldKeys, FormFields, initialForm } from './_useForm'
@@ -18,7 +24,7 @@ export type Action =
           type: ActionType.UPDATE_FIELD
           payload: {
               fieldKey: FormFieldKeys
-              fieldValue: FieldValue
+              fieldValue: FieldValue | StudentsFieldValue | FilesFieldValue
           }
       }
     | {
@@ -49,7 +55,17 @@ export const reducer = (form: FormFields, action: Action): FormFields => {
         switch (action.type) {
             case ActionType.UPDATE_FIELD: {
                 const { fieldKey, fieldValue } = action.payload
-                draft[fieldKey].value = fieldValue
+                switch (fieldKey) {
+                    case 'students':
+                        draft[fieldKey].value = fieldValue as StudentsFieldValue
+                        break
+                    case 'files':
+                        draft[fieldKey].value = fieldValue as FilesFieldValue
+                        break
+                    default:
+                        draft[fieldKey].value = fieldValue as TextFieldValue
+                        break
+                }
                 draft[fieldKey].error = null
                 break
             }
@@ -62,13 +78,15 @@ export const reducer = (form: FormFields, action: Action): FormFields => {
 
             case ActionType.SET_STUDENTS: {
                 const { students } = action.payload
-                draft.students = students
+                draft.students.value = students
+                draft.students.error = null
                 break
             }
 
             case ActionType.SET_FILES: {
                 const { files } = action.payload
-                draft.files = files
+                draft.files.value = files
+                draft.files.error = null
                 break
             }
 
