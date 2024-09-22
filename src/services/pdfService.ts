@@ -4,7 +4,8 @@ import { utilsService } from './firebase/utils.service'
 
 const splitPdfPages = async (file: File): Promise<File[]> => {
     return new Promise((resolve, reject) => {
-        const fileName = utilsService.removeFileExt(file.name)
+        let fileName = utilsService.removeFileExt(file.name)
+        fileName = utilsService.formatFileName(fileName)
 
         try {
             // Read the file as an ArrayBuffer

@@ -28,7 +28,8 @@ export const FileUploader = ({ onUploaded, onClose }: Props) => {
 
         setIsLoading(true)
         const promises = files.map((file) => {
-            const fileName = utilsService.removeFileExt(file.name)
+            let fileName = utilsService.removeFileExt(file.name)
+            fileName = utilsService.formatFileName(fileName)
             const similarFiles = getBySimilarName(fileName)
             return uploadFile(file, similarFiles)
         })

@@ -15,6 +15,11 @@ const removeFileExt = (fileName: string) => {
     return (fileName ?? '').trim().split('.').slice(0, -1).join('.')
 }
 
+const formatFileName = (fileName: string) => {
+    // Remove (1) suffix added by os
+    return fileName.replace(/\s*\(\d+\)$/, '')
+}
+
 const formatFileSize = (size: number) => {
     const kb = size / 1024
     if (kb < 1024) {
@@ -50,6 +55,7 @@ const suggestNextLessonName = (previousLesson: Lesson) => {
 export const utilsService = {
     uuid,
     removeFileExt,
+    formatFileName,
     formatFileSize,
     openUrl,
     getFileFromUrl,

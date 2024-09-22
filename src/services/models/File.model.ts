@@ -13,11 +13,14 @@ export class FileModel {
     subFiles?: FileModel[]
 
     static fromFile(file: File, downloadUrl: string): FileModel {
+        let fileName = utilsService.removeFileExt(file.name)
+        fileName = utilsService.formatFileName(fileName)
+
         const model: FileModel = {
             id: utilsService.uuid(),
-            name: utilsService.removeFileExt(file.name),
+            name: fileName,
             size: file.size,
-            tag: FileModel.getTag(file.name),
+            tag: FileModel.getTag(fileName),
             downloadUrl: downloadUrl,
             createdAt: new Date().toISOString(),
             subFiles: [],
