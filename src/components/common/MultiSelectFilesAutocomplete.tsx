@@ -153,7 +153,11 @@ const FileItem = ({ file }: { file: FileModel }) => {
                     </ListItemIcon>
                 )}
                 <Stack>
-                    <Typography variant="body2" fontWeight={500}>
+                    <Typography
+                        className="truncate-row-1"
+                        variant="body2"
+                        fontWeight={500}
+                    >
                         {file.name}
                     </Typography>
                     <Typography

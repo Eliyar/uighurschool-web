@@ -1,4 +1,15 @@
-import { Autocomplete, styled, SxProps, TextField, Theme } from '@mui/material'
+import {
+    Autocomplete,
+    Chip,
+    ListItem,
+    ListItemIcon,
+    Stack,
+    styled,
+    SxProps,
+    TextField,
+    Theme,
+    Typography,
+} from '@mui/material'
 import { useMemo, useState } from 'react'
 
 import { useClasses } from '../../hooks/useClasses'
@@ -59,7 +70,15 @@ export const MultiSelectStudentsAutocomplete = ({
             )}
             renderOption={(props, option) => (
                 <li {...props} key={option.id}>
-                    {option.label}
+                    {option.isClass ? (
+                        <Typography variant="body2" fontWeight={500}>
+                            {option.label}
+                        </Typography>
+                    ) : (
+                        <StudentItem
+                            student={option.extendedProps?.[0] as Student}
+                        />
+                    )}
                 </li>
             )}
             multiple={true}
@@ -107,17 +126,64 @@ export interface AutocompleteOption {
     value: string
     label: string
     classId?: string
+    isClass?: boolean
     extendedProps?: Student[]
+}
+
+const StudentItem = ({ student }: { student: Student }) => {
+    const { getClass } = useClasses()
+    const { findClassId } = useStudents()
+
+    const classId = useMemo(
+        () => findClassId(student.id),
+        [findClassId, student.id]
+    )
+
+    const classObj = useMemo(
+        () => (classId ? getClass(classId) : undefined),
+        [getClass, classId]
+    )
+
+    return (
+        <ListItem sx={{ p: 0 }}>
+            <Stack direction="row" alignItems="flex-start" gap={2}>
+                {classObj && (
+                    <ListItemIcon>
+                        <Chip
+                            label={classObj.name}
+                            variant="outlined"
+                            color={'primary'}
+                            size="small"
+                            sx={{
+                                fontWeight: 500,
+                            }}
+                        />
+                    </ListItemIcon>
+                )}
+                <Stack>
+                    <Typography variant="body2" fontWeight={500}>
+                        {student.name}
+                    </Typography>
+                    <Typography color="secondary" variant="body2">
+                        {student.email}
+                    </Typography>
+                </Stack>
+            </Stack>
+        </ListItem>
+    )
 }
 
 const makeOptionsFromStudents = (students: Student[]): AutocompleteOption[] => {
     return (
-        students?.map((student) => ({
-            id: student.id,
-            value: student.id,
-            label: `${student.name} [${student.email}]`,
-            extendedProps: [student],
-        })) ?? []
+        students?.map((student) => {
+            return {
+                id: student.id,
+                value: student.id,
+                label: `${student.name}, ${student.email}`,
+                isClass: false,
+                extendedProps: [student],
+            }
+        }) ?? []
     )
 }
 
@@ -133,6 +199,7 @@ const makeOptionsFromClasses = (
                 classId: classObj.id,
                 value: classObj.id,
                 label: classObj.name,
+                isClass: true,
                 extendedProps: students,
             }
         }) ?? []

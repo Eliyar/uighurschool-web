@@ -14,8 +14,16 @@ export const useClasses = () => {
         [classes]
     )
 
+    const getClass = useCallback(
+        (classId: string) => {
+            return classes.find((classObj) => classObj.id === classId)
+        },
+        [classes]
+    )
+
     return {
         classes,
         getBySimilarName,
+        getClass,
     }
 }

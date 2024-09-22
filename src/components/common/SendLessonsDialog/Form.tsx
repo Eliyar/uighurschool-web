@@ -31,7 +31,7 @@ export const Form = ({ sx, onClose }: Props) => {
     )
 
     return (
-        <Stack sx={sx} spacing={2}>
+        <Stack sx={sx} spacing={4}>
             <MultiSelectStudentsAutocomplete
                 label="Students"
                 placeholder="Select"
@@ -43,6 +43,13 @@ export const Form = ({ sx, onClose }: Props) => {
                 }}
             />
 
+            <MultiSelectFilesAutocomplete
+                label="Lessons"
+                placeholder="Select"
+                files={form.files}
+                onChange={(files) => setFiles(files)}
+            />
+
             <TextField
                 label="Subject"
                 value={(form.subject.value as string) ?? ''}
@@ -50,13 +57,6 @@ export const Form = ({ sx, onClose }: Props) => {
                 helperText={form.subject.error}
                 onChange={(value) => updateField('subject', value)}
                 onBlur={() => validateField('subject')}
-            />
-
-            <MultiSelectFilesAutocomplete
-                label="Lessons"
-                placeholder="Select"
-                files={form.files}
-                onChange={(files) => setFiles(files)}
             />
 
             <Editor

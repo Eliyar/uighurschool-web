@@ -24,8 +24,23 @@ export const useStudents = () => {
         [studentsMap]
     )
 
+    const findClassId = useCallback(
+        (studentId: string) => {
+            let classId: string | undefined
+
+            studentsMap.forEach((students, _classId) => {
+                if (students.some((student) => student.id === studentId)) {
+                    classId = _classId
+                }
+            })
+
+            return classId
+        },
+        [studentsMap]
+    )
     return {
         students,
         getByClassId,
+        findClassId,
     }
 }
