@@ -93,15 +93,15 @@ const TextFieldStyles = styled(TextField)`
 `
 
 const useView = (selected: FileModel[]) => {
-    const { files } = useFiles()
+    const { filesActive } = useFiles()
 
     const options = useMemo((): AutocompleteOption[] => {
         const _options: AutocompleteOption[] = []
 
-        _options.push(...makeOptionsFromFiles(files))
+        _options.push(...makeOptionsFromFiles(filesActive))
 
         return _options
-    }, [files])
+    }, [filesActive])
 
     const optionsSelected: AutocompleteOption[] = useMemo(
         () =>

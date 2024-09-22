@@ -7,6 +7,8 @@ import { State } from '../services/store/state'
 export const useFiles = () => {
     const files = useSelector((state: State) => state.files)
 
+    const filesSorted = useMemo(() => FileModel.sort(files), [files])
+
     const filesActive = useMemo(
         () => files.filter((file) => !file.deletedAt),
         [files]
@@ -32,7 +34,7 @@ export const useFiles = () => {
     )
 
     return {
-        files,
+        files: filesSorted,
         filesActive,
         getById,
         getBySimilarName,
