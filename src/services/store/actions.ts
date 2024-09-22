@@ -1,5 +1,6 @@
 import { Class } from '../models/Class.model'
 import { FileModel } from '../models/File.model'
+import { Lesson } from '../models/Lesson.model'
 import { NavItem } from '../models/NavItem.model'
 import { Student } from '../models/Student.model'
 import { storeService } from './store'
@@ -7,6 +8,29 @@ import { storeService } from './store'
 export class Action {
     type!: string
     payload: any
+}
+
+export class LessonsLoaded extends Action {
+    static readonly type: string = '[Lessons] Loaded'
+    lessons!: Lesson[]
+
+    static dispatch(lessons: Lesson[]) {
+        storeService.dispatch({
+            type: LessonsLoaded.type,
+            payload: {
+                lessons,
+            },
+        })
+    }
+}
+
+export class LessonAdded extends Action {
+    static readonly type: string = '[Lessons] Added'
+    lesson!: Lesson
+
+    static dispatch(lesson: Lesson) {
+        storeService.dispatch({ type: LessonAdded.type, payload: { lesson } })
+    }
 }
 
 export class FilesLoaded extends Action {

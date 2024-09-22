@@ -18,6 +18,7 @@ import { getClassStudents } from './db/classStudents/read'
 import { createFile } from './db/files/create'
 import { deleteFile, deleteFiles } from './db/files/delete'
 import { getFiles } from './db/files/read'
+import { getLessons } from './db/lessons/read'
 import { createStudent } from './db/students/create'
 import { deleteStudent } from './db/students/delete'
 import { getStudents } from './db/students/read'
@@ -53,6 +54,7 @@ export const firebaseService = {
         createClass,
         createClassStudent,
         createStudent,
+        getLessons,
         getFiles,
         getClasses,
         getClassStudents,

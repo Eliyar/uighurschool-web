@@ -6,6 +6,8 @@ import {
     FilesAdded,
     FilesDeleted,
     FilesLoaded,
+    LessonAdded,
+    LessonsLoaded,
     RemoveNavItem,
     StudentAdded,
     StudentDeleted,
@@ -23,6 +25,10 @@ import {
     processFilesLoaded,
 } from './reducers/Files.reducers'
 import {
+    processLessonAdded,
+    processLessonsLoaded,
+} from './reducers/Lessons.reducers'
+import {
     processAddNavItem,
     processRemoveNavItem,
 } from './reducers/NavItems.reducers'
@@ -38,6 +44,12 @@ export const reducer = (state: State = initialState, action: any) => {
     const payload = action.payload
 
     switch (action.type) {
+        case LessonsLoaded.type:
+            return processLessonsLoaded(state, payload)
+
+        case LessonAdded.type:
+            return processLessonAdded(state, payload)
+
         case FilesLoaded.type:
             return processFilesLoaded(state, payload)
 
