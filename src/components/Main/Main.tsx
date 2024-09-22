@@ -1,4 +1,4 @@
-import { Container, Paper, Stack } from '@mui/material'
+import { Box, Container, Paper, Stack } from '@mui/material'
 import { useEffect } from 'react'
 import { Outlet } from 'react-router'
 
@@ -25,13 +25,29 @@ export const Main = () => {
                 direction="row"
                 alignItems="center"
                 justifyContent="center"
-                sx={{ width: '100%', height: '100%' }}
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                }}
             >
-                <Paper sx={{ width: '100%' }}>
+                <Paper
+                    sx={{
+                        width: '100%',
+                    }}
+                >
                     <Stack direction="row">
-                        <Stack sx={{ flex: '1 1 100%' }}>
+                        <Stack direction="column" sx={{ flex: '1 1 100%' }}>
                             <NavBar />
-                            <Outlet />
+                            <Box
+                                sx={{
+                                    flex: '1 1 100%',
+                                    maxHeight: '90vh',
+                                    overflowY: 'auto',
+                                    position: 'relative',
+                                }}
+                            >
+                                <Outlet />
+                            </Box>
                         </Stack>
                     </Stack>
                 </Paper>

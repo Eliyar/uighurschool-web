@@ -1,4 +1,3 @@
-import { Stack } from '@mui/material'
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -16,9 +15,5 @@ export const ViewUrl = () => {
         return <NotFoundPage message="URL not found" />
     }
 
-    return (
-        <Stack height="90vh">
-            <Iframe src={navItem.url} />
-        </Stack>
-    )
+    return <Iframe src={navItem.url} />
 }

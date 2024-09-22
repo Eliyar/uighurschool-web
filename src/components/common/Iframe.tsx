@@ -2,7 +2,7 @@ import { styled } from '@mui/material'
 
 const Styles = styled('iframe')`
     width: 100%;
-    height: 100%;
+    height: 90vh;
     border: none;
 `
 
