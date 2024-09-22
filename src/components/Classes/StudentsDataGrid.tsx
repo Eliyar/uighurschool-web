@@ -89,7 +89,12 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
     const onUpdate = useCallback(
         async (studentId: string, updates: Partial<Student>) => {
             try {
-                await updateStudent(classObj.id, studentId, updates)
+                await updateStudent(classObj.id, studentId, {
+                    id: updates.id,
+                    name: updates.name,
+                    uighurName: updates.uighurName,
+                    email: updates.email,
+                })
             } catch (error) {
                 console.error(error)
             }
