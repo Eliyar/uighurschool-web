@@ -30,8 +30,17 @@ const formatFileSize = (size: number) => {
     return `${mb.toFixed(2)} MB`
 }
 
-const openUrl = (url: string) => {
-    window.open(url, '_blank')
+const openUrl = (url: string, title?: string) => {
+    if (!page || page.closed) {
+        page = window.open(url, title, 'width=1000,height=800')
+    } else {
+        page.focus()
+        page.location.href = url
+    }
+
+    if (page) {
+        page.focus()
+    }
 }
 
 const getFileFromUrl = async (fileName: string, url: string): Promise<File> => {
@@ -61,3 +70,5 @@ export const utilsService = {
     getFileFromUrl,
     suggestNextLessonName,
 }
+
+let page: Window | null = null

@@ -15,6 +15,7 @@ import {
     Typography,
 } from '@mui/material'
 
+import { openWheel } from '../../controllers/open-wheel'
 import { useClasses } from '../../hooks/useClasses'
 import {
     OpenClassFormDialog,
@@ -81,14 +82,17 @@ export const ClassesList = () => {
                                         )
                                     }}
                                 />
-                                <Button
-                                    variant="outlined"
-                                    label="Wheels"
-                                    startIcon={<CameraOutlined />}
-                                    onClick={(event) => {
-                                        event.stopPropagation()
-                                    }}
-                                />
+                                {classObj.wheelsUrl && (
+                                    <Button
+                                        variant="outlined"
+                                        label="Wheels"
+                                        startIcon={<CameraOutlined />}
+                                        onClick={(event) => {
+                                            event.stopPropagation()
+                                            openWheel(classObj.wheelsUrl!)
+                                        }}
+                                    />
+                                )}
                             </Stack>
                         </Stack>
                     </AccordionSummary>

@@ -5,7 +5,6 @@ import { useCallback, useMemo, useState } from 'react'
 import { openLesson } from '../../../controllers/open-lesson'
 import { useLessons } from '../../../hooks/useLessons'
 import { FileModel } from '../../../services/models/File.model'
-import { Lesson } from '../../../services/models/Lesson.model'
 import { LessonItem } from './LessonItem'
 
 export const Lessons = () => {
@@ -17,8 +16,8 @@ export const Lessons = () => {
         [lessonsGrouped]
     )
 
-    const onView = useCallback((lesson: Lesson, files: FileModel[]) => {
-        openLesson(lesson, files)
+    const onView = useCallback((files: FileModel[], wheelsUrl?: string) => {
+        openLesson(files, wheelsUrl)
     }, [])
 
     if (!Object.keys(lessonsGrouped).length) {

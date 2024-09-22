@@ -21,7 +21,7 @@ import { Lesson } from '../../../services/models/Lesson.model'
 
 interface Props {
     lesson: Lesson
-    onView?: (lesson: Lesson, files: FileModel[]) => void
+    onView?: (files: FileModel[], wheelsUrl?: string) => void
 }
 
 const Styles = styled(Stack)`
@@ -59,7 +59,7 @@ export const LessonItem = ({ lesson, onView }: Props) => {
             <Styles
                 spacing={1.5}
                 onClick={() => {
-                    onView?.(lesson, files)
+                    onView?.(files, classObj?.wheelsUrl)
                 }}
             >
                 <Stack
