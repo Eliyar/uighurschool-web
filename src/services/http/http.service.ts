@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { ax } from './axios'
 
 const API = process.env.REACT_APP_API
 
@@ -17,7 +17,7 @@ const sendEmail = async (payload: {
     })
 
     const url = `${API}/gmail/send`
-    return axios.post(url, formData)
+    return ax.post(url, formData)
 }
 
 export const httpService = {

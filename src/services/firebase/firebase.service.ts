@@ -6,6 +6,7 @@ import { getStorage } from 'firebase/storage'
 
 import {
     getAsyncSignedInUser,
+    getFirebaseToken,
     getSignedInUser,
 } from './authentication/get-signed-in-user'
 import { signIn } from './authentication/sign-in'
@@ -47,6 +48,7 @@ export const firebaseService = {
     auth: {
         getSignedInUser,
         getAsyncSignedInUser,
+        getFirebaseToken,
         signIn,
     },
     db: {
