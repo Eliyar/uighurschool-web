@@ -7,6 +7,7 @@ enum ROUTE {
     MAIN = '/',
     AUTHCHECK = '/auth',
     SIGNIN = '/auth/signin',
+    GOOGLE_AUTH_CALLBACK = '/auth/google/callback',
     LESSONS = '/lessons',
     SEND = '/send',
     URL = '/url',
@@ -22,8 +23,8 @@ const sendRoute = `${BASE_HREF}${ROUTE.SEND}`
 const urlRoute = `${BASE_HREF}${ROUTE.URL}/:id`
 const unauthorizedRoute = `${BASE_HREF}${ROUTE.UNAUTHORIZED}`
 const classesRoute = `${BASE_HREF}${ROUTE.CLASSES}`
-
-const publicRoutes = [ROUTE.SIGNIN]
+const googleAuthCallbackRoute = `${BASE_HREF}${ROUTE.GOOGLE_AUTH_CALLBACK}`
+const publicRoutes = [ROUTE.SIGNIN, ROUTE.GOOGLE_AUTH_CALLBACK]
 
 export const useRoute = () => {
     const navigate = useNavigate()
@@ -65,6 +66,7 @@ export const useRoute = () => {
         urlRoute,
         unauthorizedRoute,
         isProtectedRoute,
+        googleAuthCallbackRoute,
         navAuthCheck,
         navSignIn,
         navMain,

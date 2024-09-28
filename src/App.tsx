@@ -8,6 +8,7 @@ import {
 
 import { AuthCheckPage } from './components/Pages/AuthCheckPage'
 import { ClassesPage } from './components/Pages/ClassesPage'
+import { GoogleAuthCallbackPage } from './components/Pages/GoogleAuthCallbackPage'
 import { LessonsPage } from './components/Pages/LessonsPage'
 import { MainPage } from './components/Pages/MainPage'
 import { SendPage } from './components/Pages/SendPage'
@@ -29,6 +30,7 @@ const AppRoutes = () => {
         signInRoute,
         lessonsRoute,
         sendRoute,
+        googleAuthCallbackRoute,
         authCheckRoute,
         mainRoute,
         classesRoute,
@@ -38,6 +40,10 @@ const AppRoutes = () => {
         <Routes>
             <Route path={signInRoute} element={<SignInPage />} />
             <Route path={authCheckRoute} element={<AuthCheckPage />} />
+            <Route
+                path={googleAuthCallbackRoute}
+                element={<GoogleAuthCallbackPage />}
+            />
             <Route
                 path={mainRoute}
                 element={

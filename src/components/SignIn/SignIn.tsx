@@ -5,13 +5,11 @@ import Typography from '@mui/material/Typography'
 import { FirebaseError } from 'firebase/app'
 import { useCallback, useState } from 'react'
 
-import { useRoute } from '../../hooks/useRoute'
 import { firebaseService } from '../../services/firebase/firebase.service'
 import { Button } from '../common/Button'
 import { Logo } from '../common/Logo'
 
 export default function SignIn() {
-    const { navMain } = useRoute()
     const [error, setError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -29,7 +27,6 @@ export default function SignIn() {
             try {
                 setIsLoading(true)
                 await firebaseService.auth.signIn(email, password)
-                navMain()
                 setError(null)
             } catch (error) {
                 const code = (error as FirebaseError).code
@@ -45,7 +42,7 @@ export default function SignIn() {
 
             setIsLoading(false)
         },
-        [navMain]
+        []
     )
 
     return (
