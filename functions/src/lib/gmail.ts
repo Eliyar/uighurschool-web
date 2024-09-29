@@ -29,11 +29,7 @@ const getOauth2Client = (() => {
         const credentials = await getGmailCredentials()
         const { client_id, client_secret, redirect_uris } = credentials
 
-        client = new google.auth.OAuth2(
-            client_id,
-            client_secret,
-            redirect_uris[0]
-        )
+        client = new google.auth.OAuth2(client_id, client_secret, redirect_uris)
         return client
     }
 })()
