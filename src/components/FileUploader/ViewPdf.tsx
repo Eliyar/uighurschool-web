@@ -40,7 +40,6 @@ export const ViewPdf = ({ file }: Props) => {
 
                     // Get the first page
                     const page = await pdf.getPage(1)
-                    console.log('page:', page)
 
                     // Set up canvas
                     const viewport = page.getViewport({ scale: 1 })

@@ -27,6 +27,7 @@
         "axios": "^1.7.7",
         "classnames": "^2.5.1",
         "firebase": "^10.13.1",
+        "firebase-tools": "^13.20.1",
         "fuse.js": "^7.0.0",
         "immer": "^10.1.1",
         "map.prototype.tojson": "^0.1.3",

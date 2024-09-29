@@ -1,6 +1,6 @@
 import { createLesson } from '../services/firebase/db/lessons/create'
+import { firebaseService } from '../services/firebase/firebase.service'
 import { utilsService } from '../services/firebase/utils.service'
-import { httpService } from '../services/http/http.service'
 import { FileModel } from '../services/models/File.model'
 import { Lesson } from '../services/models/Lesson.model'
 import { Student } from '../services/models/Student.model'
@@ -25,7 +25,7 @@ export const sendLessons = async (payload: {
         )
     )
 
-    return httpService
+    return firebaseService.functions
         .sendEmail({
             to,
             subject: payload.subject,

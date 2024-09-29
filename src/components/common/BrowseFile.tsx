@@ -38,6 +38,10 @@ export const BrowseFile = ({ onChange }: Props) => {
                     const files = Array.from(
                         event?.target?.files ?? []
                     ) as File[]
+
+                    // TODO: Check file size
+                    // TODO: Check file type
+
                     onChange(files)
                 }}
             />

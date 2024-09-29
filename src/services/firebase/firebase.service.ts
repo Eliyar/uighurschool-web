@@ -2,6 +2,7 @@ import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import { getDatabase } from 'firebase/database'
 import { setLogLevel as setFirestoreLogLevel } from 'firebase/firestore'
+import { connectFunctionsEmulator, getFunctions } from 'firebase/functions'
 import { getStorage } from 'firebase/storage'
 
 import {
@@ -24,6 +25,9 @@ import { createStudent } from './db/students/create'
 import { deleteStudent } from './db/students/delete'
 import { getStudents } from './db/students/read'
 import { updateStudent } from './db/students/update'
+import { authorize } from './functions/authorize'
+import { authorizeCallback } from './functions/authorize-callback'
+import { sendEmail } from './functions/send-email'
 import { uploadFile } from './storage/upload-file'
 
 setFirestoreLogLevel('debug')
@@ -43,6 +47,15 @@ export const firebaseApp = initializeApp(firebaseConfig)
 export const firebaseAuth = getAuth(firebaseApp)
 export const firebaseDb = getDatabase(firebaseApp)
 export const firebaseStorage = getStorage(firebaseApp)
+export const firebaseFunctions = getFunctions(firebaseApp)
+
+// For debugging: connect to functions locally
+if (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname?.includes('192.168')
+) {
+    connectFunctionsEmulator(firebaseFunctions, 'localhost', 5001)
+}
 
 export const firebaseService = {
     auth: {
@@ -70,5 +83,10 @@ export const firebaseService = {
     },
     storage: {
         uploadFile,
+    },
+    functions: {
+        authorize,
+        authorizeCallback,
+        sendEmail,
     },
 }
