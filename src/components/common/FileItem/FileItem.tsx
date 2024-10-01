@@ -17,6 +17,7 @@ const Styles = styled(Stack)`
     padding: 12px;
     border: 1px solid ${Colors.BORDER_COLOR};
     border-radius: 8px;
+    background-color: ${Colors.BLUE}09;
 `
 
 export const FileItem = ({ file, hideMenu, onView }: Props) => {
@@ -44,7 +45,7 @@ export const FileItem = ({ file, hideMenu, onView }: Props) => {
                     sx={{ flex: '1 1 100%' }}
                 >
                     <IconStyles>
-                        <DescriptionOutlined />
+                        <DescriptionOutlined color="secondary" />
                     </IconStyles>
                     <Stack spacing={0.5} sx={{ flex: '1 1 100%' }}>
                         <Stack
@@ -94,5 +95,5 @@ export const FileItem = ({ file, hideMenu, onView }: Props) => {
 const IconStyles = styled(Stack)`
     padding: 8px;
     border-radius: 8px;
-    background-color: ${Colors.CONTROLLER_BACKGROUND};
+    background-color: ${Colors.BLUE}22;
 `

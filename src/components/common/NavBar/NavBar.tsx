@@ -23,6 +23,7 @@ import { Button } from '../Button'
 import { Logo } from '../Logo'
 
 const Styles = styled(Stack)`
+    height: 68px;
     border-bottom: 1px solid ${Colors.BORDER_COLOR};
     background-color: ${Colors.BLUE}1F;
 `

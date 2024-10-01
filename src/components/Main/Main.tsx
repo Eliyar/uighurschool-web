@@ -20,7 +20,11 @@ export const Main = () => {
     }, [])
 
     return (
-        <Container component="main" maxWidth="xl" sx={{ height: '100%' }}>
+        <Container
+            component="main"
+            maxWidth="xl"
+            sx={{ maxHeight: '100%', height: '100%', p: 1 }}
+        >
             <Stack
                 direction="row"
                 alignItems="center"
@@ -33,6 +37,7 @@ export const Main = () => {
                 <Paper
                     sx={{
                         width: '100%',
+                        height: '100%',
                     }}
                 >
                     <Stack direction="row">
@@ -41,7 +46,7 @@ export const Main = () => {
                             <Box
                                 sx={{
                                     flex: '1 1 100%',
-                                    maxHeight: '90vh',
+                                    height: 'calc(100% - 78px - 16px)',
                                     overflowY: 'auto',
                                     position: 'relative',
                                 }}

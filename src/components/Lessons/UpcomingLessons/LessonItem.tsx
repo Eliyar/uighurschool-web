@@ -28,6 +28,7 @@ const Styles = styled(Stack)`
     padding: 12px;
     border: 1px solid ${Colors.BORDER_COLOR};
     border-radius: 8px;
+    background-color: ${Colors.BLUE}09;
 `
 
 export const LessonItem = ({ lesson, onView }: Props) => {
