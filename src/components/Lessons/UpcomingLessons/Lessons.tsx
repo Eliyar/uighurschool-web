@@ -1,5 +1,5 @@
 import { InfoOutlined } from '@mui/icons-material'
-import { Alert, Button, Grid, Stack, Typography } from '@mui/material'
+import { Alert, Button, Grid2, Stack, Typography } from '@mui/material'
 import { useCallback, useMemo, useState } from 'react'
 
 import { openLesson } from '../../../controllers/open-lesson'
@@ -37,16 +37,19 @@ export const Lessons = () => {
                         <Typography variant="body1" color="text.secondary">
                             {date}
                         </Typography>
-                        <Grid container spacing={2} sx={{ width: '100%' }}>
+                        <Grid2 container spacing={2} sx={{ width: '100%' }}>
                             {lessons.map((lesson) => (
-                                <Grid item xs={3} key={lesson.id}>
+                                <Grid2
+                                    key={lesson.id}
+                                    size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+                                >
                                     <LessonItem
                                         lesson={lesson}
                                         onView={onView}
                                     />
-                                </Grid>
+                                </Grid2>
                             ))}
-                        </Grid>
+                        </Grid2>
                     </Stack>
                 ))}
 

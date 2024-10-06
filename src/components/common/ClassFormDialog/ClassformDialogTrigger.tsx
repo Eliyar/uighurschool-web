@@ -11,7 +11,6 @@ export const ClassformDialogTrigger = () => {
             size="small"
             startIcon={<CreateNewFolderOutlined />}
             onClick={() => OpenClassFormDialog.emit()}
-            sx={{ px: 3 }}
         />
     )
 }

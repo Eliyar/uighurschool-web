@@ -11,13 +11,13 @@ import { useLocalContext } from '../hooks/useLocalContext'
 
 const Styles = styled(ToggleButtonGroup)`
     &.${toggleButtonGroupClasses.root} {
+        height: 40px;
         padding: 2px;
         background-color: ${Colors.CONTROLLER_BACKGROUND};
     }
 
     .${toggleButtonClasses.root} {
-        padding-left: 16px;
-        padding-right: 16px;
+        padding: 8px 16px;
         background-color: transparent;
         border: 0;
         text-transform: none;

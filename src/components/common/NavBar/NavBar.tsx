@@ -1,16 +1,6 @@
-import { Close, Home } from '@mui/icons-material'
-import {
-    ButtonBase,
-    Divider,
-    IconButton,
-    Stack,
-    styled,
-    Tab,
-    Tabs,
-    Typography,
-} from '@mui/material'
+import { Close } from '@mui/icons-material'
+import { ButtonBase, IconButton, Stack, styled, Tab, Tabs } from '@mui/material'
 import { useParams } from 'react-router'
-import { NavLink } from 'react-router-dom'
 
 import Colors from '../../../colors'
 import {
@@ -29,34 +19,16 @@ const Styles = styled(Stack)`
 `
 
 export const NavBar = () => {
-    const { lessonsRoute, navLessons } = useRoute()
+    const { navLessons } = useRoute()
 
     return (
-        <Styles direction="row" alignItems="center" spacing={2} padding={1}>
-            <ButtonBase onClick={() => navLessons()}>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <Logo />
-                    <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        color="primary"
-                        noWrap
-                    >
-                        Uighur School
-                    </Typography>
-                </Stack>
+        <Styles direction="row" alignItems="center" spacing={1} paddingX={1}>
+            <ButtonBase
+                onClick={() => navLessons()}
+                sx={{ borderRadius: '13px' }}
+            >
+                <Logo />
             </ButtonBase>
-            <Divider orientation="vertical" />
-            <NavLink to={lessonsRoute}>
-                {({ isActive }) => (
-                    <IconButton
-                        color={isActive ? 'primary' : 'default'}
-                        size="large"
-                    >
-                        <Home />
-                    </IconButton>
-                )}
-            </NavLink>
             <NavItems />
         </Styles>
     )
@@ -73,7 +45,8 @@ const NavItems = () => {
                 value={false}
                 variant="scrollable"
                 scrollButtons="auto"
-                sx={{ flex: '1 1 100%', width: '100px', minWidth: '100px' }}
+                allowScrollButtonsMobile
+                sx={{ flex: '1 1 100%', width: '100px' }}
             >
                 {navItems.map((navItem) => {
                     const isActive = navItem.id === id

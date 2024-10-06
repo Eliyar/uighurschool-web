@@ -11,7 +11,6 @@ export const FileUploaderDialogTrigger = () => {
             size="small"
             startIcon={<UploadFileOutlined />}
             onClick={() => OpenFileUploaderDialog.emit()}
-            sx={{ px: 3 }}
         />
     )
 }

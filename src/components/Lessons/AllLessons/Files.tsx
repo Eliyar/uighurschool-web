@@ -1,5 +1,5 @@
 import { InfoOutlined } from '@mui/icons-material'
-import { Alert, Box, Grid, Stack, Typography } from '@mui/material'
+import { Alert, Box, Grid2, Stack, Typography } from '@mui/material'
 import { useCallback } from 'react'
 
 import { openFile } from '../../../controllers/open-file'
@@ -49,12 +49,12 @@ export const Files = () => {
     }
 
     return (
-        <Grid container spacing={2} sx={{ width: '100%' }}>
+        <Grid2 container spacing={2} sx={{ width: '100%' }}>
             {files.map((file, index) => (
-                <Grid key={index} item xs={3}>
+                <Grid2 key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                     <FileItem file={file} onView={onView} />
-                </Grid>
+                </Grid2>
             ))}
-        </Grid>
+        </Grid2>
     )
 }

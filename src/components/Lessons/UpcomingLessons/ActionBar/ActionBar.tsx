@@ -4,16 +4,13 @@ import { Stack, Typography } from '@mui/material'
 import { useRoute } from '../../../../hooks/useRoute'
 import { Button } from '../../../common/Button'
 import { SendLessonsDialogTrigger } from '../../../common/SendLessonsDialog/SendLessonsDialogTrigger'
+import { ActionBarStyles } from '../../../common/styles/styles'
 
 export const ActionBar = () => {
     const { navClasses } = useRoute()
 
     return (
-        <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-        >
+        <ActionBarStyles>
             <Stack direction="row" alignItems="center" spacing={2}>
                 <Typography variant="h6">Lessons</Typography>
             </Stack>
@@ -25,10 +22,9 @@ export const ActionBar = () => {
                     size="small"
                     startIcon={<SchoolOutlined />}
                     onClick={() => navClasses()}
-                    sx={{ px: 3 }}
                 />
                 <SendLessonsDialogTrigger />
             </Stack>
-        </Stack>
+        </ActionBarStyles>
     )
 }

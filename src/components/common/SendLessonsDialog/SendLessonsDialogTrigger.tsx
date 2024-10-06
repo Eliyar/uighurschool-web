@@ -11,7 +11,6 @@ export const SendLessonsDialogTrigger = () => {
             size="small"
             startIcon={<EmailOutlined />}
             onClick={() => OpenSendLessonsDialog.emit()}
-            sx={{ px: 3 }}
         />
     )
 }

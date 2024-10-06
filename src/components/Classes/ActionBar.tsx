@@ -1,17 +1,13 @@
-import { Stack, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 import { ClassformDialogTrigger } from '../common/ClassFormDialog/ClassformDialogTrigger'
+import { ActionBarStyles } from '../common/styles/styles'
 
 export const ActionBar = () => {
     return (
-        <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
-        >
+        <ActionBarStyles>
             <Typography variant="h6">Classes</Typography>
-
             <ClassformDialogTrigger />
-        </Stack>
+        </ActionBarStyles>
     )
 }

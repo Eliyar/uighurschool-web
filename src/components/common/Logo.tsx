@@ -8,7 +8,9 @@ interface Props {
 
 const Styles = styled('img')`
     width: 50px;
+    min-width: 50px;
     height: auto;
+    min-height: auto;
 `
 
 export const Logo = ({ sx, onClick }: Props) => {

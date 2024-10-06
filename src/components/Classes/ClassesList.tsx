@@ -1,7 +1,6 @@
 import {
     CameraOutlined,
     Edit,
-    ExpandMore,
     InfoOutlined,
     PersonAddOutlined,
 } from '@mui/icons-material'
@@ -10,11 +9,12 @@ import {
     AccordionDetails,
     AccordionSummary,
     Alert,
-    IconButton,
     Stack,
+    styled,
     Typography,
 } from '@mui/material'
 
+import Colors from '../../colors'
 import { openWheel } from '../../controllers/open-wheel'
 import { useClasses } from '../../hooks/useClasses'
 import {
@@ -23,6 +23,11 @@ import {
 } from '../../services/eventbus.service'
 import { Button } from '../common/Button'
 import { StudentsDataGrid } from './StudentsDataGrid'
+
+const AccordionStyles = styled(Accordion)`
+    background-color: ${Colors.CONTROLLER_BACKGROUND};
+    border-radius: 6px;
+`
 
 export const ClassesList = () => {
     const { classes } = useClasses()
@@ -38,38 +43,41 @@ export const ClassesList = () => {
     return (
         <>
             {classes.map((classObj) => (
-                <Accordion key={classObj.id} elevation={0}>
-                    <AccordionSummary
-                        expandIcon={<ExpandMore />}
-                        aria-controls="panel1-content"
-                        id="panel1-header"
-                    >
+                <AccordionStyles key={classObj.id} expanded elevation={0}>
+                    <AccordionSummary expandIcon={false}>
                         <Stack
-                            direction="row"
-                            alignItems="center"
-                            justifyContent="space-between"
                             spacing={1}
-                            sx={{ width: '100%', mr: 3 }}
+                            sx={{
+                                width: '100%',
+                                mr: 3,
+                                flexDirection: { xs: 'column', sm: 'row' },
+                                alignItems: { xs: 'flex-start', sm: 'center' },
+                                justifyContent: {
+                                    xs: 'flex-end',
+                                    sm: 'space-between',
+                                },
+                            }}
                         >
                             <Stack
                                 direction="row"
                                 alignItems="center"
                                 spacing={2}
                             >
-                                <Typography variant="body2" fontWeight={500}>
+                                <Typography variant="h6" fontWeight={500}>
                                     {classObj.name}
                                 </Typography>
-                                <IconButton
+                            </Stack>
+
+                            <Stack direction="row" spacing={1}>
+                                <Button
+                                    variant="outlined"
+                                    label="Edit Class"
+                                    startIcon={<Edit />}
                                     onClick={(event) => {
                                         event.stopPropagation()
                                         OpenClassFormDialog.emit(classObj)
                                     }}
-                                >
-                                    <Edit />
-                                </IconButton>
-                            </Stack>
-
-                            <Stack direction="row" spacing={1}>
+                                />
                                 <Button
                                     variant="outlined"
                                     label="Add Student"
@@ -99,7 +107,7 @@ export const ClassesList = () => {
                     <AccordionDetails>
                         <StudentsDataGrid classObj={classObj} />
                     </AccordionDetails>
-                </Accordion>
+                </AccordionStyles>
             ))}
         </>
     )

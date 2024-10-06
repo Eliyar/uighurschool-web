@@ -1,5 +1,5 @@
 import { Close, PersonAddOutlined } from '@mui/icons-material'
-import { Alert, Stack, Typography } from '@mui/material'
+import { Alert, Stack, styled, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridRowsProp } from '@mui/x-data-grid'
 import { useCallback, useMemo } from 'react'
 
@@ -20,14 +20,6 @@ const columns: GridColDef[] = [
     {
         field: 'name',
         headerName: 'Name',
-        flex: 1,
-        disableColumnMenu: true,
-        editable: true,
-    },
-    {
-        field: 'uighurName',
-        headerName: 'Uighur Name',
-        flex: 1,
         disableColumnMenu: true,
         editable: true,
     },
@@ -48,7 +40,7 @@ const columns: GridColDef[] = [
                 key="delete"
                 variant="outlined"
                 color="error"
-                label="Remove Student"
+                label="Remove"
                 startIcon={<Close />}
                 onClick={async (event) => {
                     event.stopPropagation()
@@ -59,12 +51,17 @@ const columns: GridColDef[] = [
 
                     // TODO: display toast message
                 }}
+                sx={{ px: 1, py: 0.5, height: 32 }}
             />,
         ],
         flex: 1,
         disableColumnMenu: true,
     },
 ]
+
+const DatagridStyles = styled(DataGrid)`
+    background-color: white;
+`
 
 export const StudentsDataGrid = ({ classObj }: Props) => {
     const { getByClassId } = useStudents()
@@ -79,7 +76,6 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
             students?.map((student) => ({
                 id: student.id,
                 name: student.name,
-                uighurName: student.uighurName ?? '',
                 email: student.email,
                 classId: classObj.id,
             })) ?? [],
@@ -92,7 +88,6 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
                 await updateStudent(classObj.id, studentId, {
                     id: updates.id,
                     name: updates.name,
-                    uighurName: updates.uighurName,
                     email: updates.email,
                 })
             } catch (error) {
@@ -124,7 +119,7 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
     }
 
     return (
-        <DataGrid
+        <DatagridStyles
             rows={rows}
             columns={columns}
             pagination={undefined}

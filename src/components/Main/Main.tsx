@@ -40,13 +40,20 @@ export const Main = () => {
                         height: '100%',
                     }}
                 >
-                    <Stack direction="row">
-                        <Stack direction="column" sx={{ flex: '1 1 100%' }}>
+                    <Stack
+                        direction="row"
+                        sx={{ height: '100%', width: '100%' }}
+                    >
+                        <Stack
+                            direction="column"
+                            sx={{ flex: '1 1 100%', width: '100%' }}
+                        >
                             <NavBar />
                             <Box
                                 sx={{
                                     flex: '1 1 100%',
-                                    height: 'calc(100% - 78px - 16px)',
+                                    width: '100%',
+                                    height: '100%',
                                     overflowY: 'auto',
                                     position: 'relative',
                                 }}

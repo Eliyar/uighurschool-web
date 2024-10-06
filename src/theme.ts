@@ -26,8 +26,48 @@ const themeOptions: ThemeOptions = {
         },
     },
     typography: {
-        button: {
-            fontWeight: 500,
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        h1: {
+            fontSize: '2.5rem',
+            '@media (min-width:600px)': {
+                fontSize: '3rem',
+            },
+        },
+        h2: {
+            fontSize: '2rem',
+            '@media (min-width:600px)': {
+                fontSize: '2.5rem',
+            },
+        },
+        h3: {
+            fontSize: '1.75rem',
+            '@media (min-width:600px)': {
+                fontSize: '2rem',
+            },
+        },
+        h4: {
+            fontSize: '1.5rem',
+            '@media (min-width:600px)': {
+                fontSize: '1.75rem',
+            },
+        },
+        h5: {
+            fontSize: '1.25rem',
+            '@media (min-width:600px)': {
+                fontSize: '1.5rem',
+            },
+        },
+        h6: {
+            fontSize: '1rem',
+            '@media (min-width:600px)': {
+                fontSize: '1.25rem',
+            },
+        },
+        body1: {
+            fontSize: '1rem',
+        },
+        body2: {
+            fontSize: '0.875rem',
         },
     },
     shape: {

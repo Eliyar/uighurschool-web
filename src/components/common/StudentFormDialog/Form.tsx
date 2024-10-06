@@ -38,14 +38,6 @@ export const Form = ({ isUpdating, sx, onClose }: Props) => {
                 onBlur={() => validateField('name')}
             />
             <TextField
-                label="Uighur Name"
-                value={(form.uighurName.value as string) ?? ''}
-                error={!!form.uighurName.error}
-                helperText={form.uighurName.error}
-                onChange={(value) => updateField('uighurName', value)}
-                onBlur={() => validateField('uighurName')}
-            />
-            <TextField
                 label="Email"
                 value={(form.email.value as string) ?? ''}
                 error={!!form.email.error}
