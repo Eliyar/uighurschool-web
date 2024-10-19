@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useNavItems } from '../../hooks/useNavItems'
-import { Iframe } from '../common/Iframe'
+import { PDFViewer } from '../common/PDFViewer'
 import { NotFoundPage } from '../Pages/NoteFoundPage'
 
 export const ViewUrl = () => {
@@ -15,5 +15,5 @@ export const ViewUrl = () => {
         return <NotFoundPage message="URL not found" />
     }
 
-    return <Iframe src={navItem.url} />
+    return <PDFViewer url={navItem.url} />
 }
