@@ -16,8 +16,8 @@ export const Lessons = () => {
         [lessonsGrouped]
     )
 
-    const onView = useCallback((files: FileModel[], wheelsUrl?: string) => {
-        openLesson(files, wheelsUrl)
+    const onView = useCallback((files: FileModel[]) => {
+        openLesson(files)
     }, [])
 
     if (!Object.keys(lessonsGrouped).length) {

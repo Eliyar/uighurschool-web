@@ -18,10 +18,11 @@ import { useClasses } from '../../../hooks/useClasses'
 import { useFiles } from '../../../hooks/useFiles'
 import { FileModel } from '../../../services/models/File.model'
 import { Lesson } from '../../../services/models/Lesson.model'
+import { LessonItemMenu } from './LessonItemMenu'
 
 interface Props {
     lesson: Lesson
-    onView?: (files: FileModel[], wheelsUrl?: string) => void
+    onView?: (files: FileModel[]) => void
 }
 
 const Styles = styled(Stack)`
@@ -57,12 +58,7 @@ export const LessonItem = ({ lesson, onView }: Props) => {
             component={Box}
             sx={{ display: 'block', borderRadius: '6px' }}
         >
-            <Styles
-                spacing={1.5}
-                onClick={() => {
-                    onView?.(files, classObj?.wheelsUrl)
-                }}
-            >
+            <Styles spacing={1.5} onClick={() => onView?.(files)}>
                 <Stack
                     direction="row"
                     alignItems="flex-start"
@@ -105,10 +101,19 @@ export const LessonItem = ({ lesson, onView }: Props) => {
 
                 <Divider />
 
-                <Stack>
-                    {files.map((file) => (
-                        <FileItem key={file.id} file={file} />
-                    ))}
+                <Stack
+                    direction="row"
+                    alignItems="flex-start"
+                    justifyContent="space-between"
+                    spacing={1}
+                >
+                    <Stack>
+                        {files.map((file) => (
+                            <FileItem key={file.id} file={file} />
+                        ))}
+                    </Stack>
+
+                    <LessonItemMenu wheelsUrl={classObj?.wheelsUrl} />
                 </Stack>
             </Styles>
         </ButtonBase>
