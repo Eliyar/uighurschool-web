@@ -11,6 +11,7 @@ import { Class } from '../../services/models/Class.model'
 import { Student } from '../../services/models/Student.model'
 import { validationService } from '../../services/validation.service'
 import { Button } from '../common/Button'
+import { Toast } from '../common/Toast'
 
 interface Props {
     classObj: Class
@@ -49,7 +50,7 @@ const columns: GridColDef[] = [
 
                     await deleteStudent(params.row.classId, params.row.id)
 
-                    // TODO: display toast message
+                    Toast.success('Student removed')
                 }}
                 sx={{ px: 1, py: 0.5, height: 32 }}
             />,
@@ -94,7 +95,7 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
                 console.error(error)
             }
 
-            // TODO: display toast message
+            Toast.success('Student updated')
         },
         [classObj.id]
     )
@@ -131,7 +132,7 @@ export const StudentsDataGrid = ({ classObj }: Props) => {
                         updatedRow.email
                     )
                     if (!isEmailValid) {
-                        // TODO: display toast message
+                        Toast.error('Invalid email')
                         return originalRow
                     }
 

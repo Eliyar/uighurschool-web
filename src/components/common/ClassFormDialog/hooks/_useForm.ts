@@ -10,6 +10,7 @@ import {
     TextField,
 } from '../../../../lib/field'
 import { Class } from '../../../../services/models/Class.model'
+import { Toast } from '../../Toast'
 import { ActionType, reducer } from './reducer'
 
 export interface FormFields {
@@ -138,7 +139,7 @@ export const useForm = (classObj: Class | undefined): FormHookState => {
                 }
             }
 
-            // TODO: display toast
+            Toast.success('Class created')
 
             callback()
         },

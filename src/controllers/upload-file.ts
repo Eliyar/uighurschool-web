@@ -1,3 +1,4 @@
+import { Toast } from '../components/common/Toast'
 import { MAX_UPLOAD_PAGES } from '../constants'
 import { firebaseService } from '../services/firebase/firebase.service'
 import { FileModel } from '../services/models/File.model'
@@ -20,7 +21,7 @@ export const uploadFile = async (
         const downloadUrl = await firebaseService.storage.uploadFile(file)
         fileModel = FileModel.fromFile(file, downloadUrl)
     } catch (error) {
-        // TODO: display toast
+        Toast.error('Error uploading file')
         console.error('Error splitting PDF:', error)
         return Promise.reject(error)
     }
@@ -67,6 +68,8 @@ export const uploadFile = async (
             console.error('Error deleting similar files:', error)
         }
     }
+
+    Toast.success('Lesson(s) uploaded')
 
     return Promise.resolve(fileModel)
 }

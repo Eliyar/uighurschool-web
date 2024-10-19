@@ -10,6 +10,7 @@ import {
 import { Class } from '../../../../services/models/Class.model'
 import { Student } from '../../../../services/models/Student.model'
 import { validationService } from '../../../../services/validation.service'
+import { Toast } from '../../Toast'
 import { ActionType, reducer } from './reducer'
 
 export interface FormFields {
@@ -140,7 +141,7 @@ export const useForm = (
                 }
             }
 
-            // TODO: display toast
+            Toast.success('Student created')
 
             callback()
         },

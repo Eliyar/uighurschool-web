@@ -35,7 +35,6 @@ export const FileUploader = ({ onUploaded, onClose }: Props) => {
         })
 
         Promise.all(promises).finally(() => {
-            // TODO: display toast message
             setIsLoading(false)
             onUploaded()
         })

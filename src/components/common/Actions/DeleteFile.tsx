@@ -3,6 +3,7 @@ import { ReactNode, useCallback } from 'react'
 
 import { firebaseService } from '../../../services/firebase/firebase.service'
 import { FilesDeleted } from '../../../services/store/actions'
+import { Toast } from '../Toast'
 
 interface Props {
     fileId: string
@@ -20,7 +21,7 @@ export const DeleteFile = ({ fileId, children, onDeleted }: Props) => {
                 await firebaseService.db.deleteFile(fileId)
                 FilesDeleted.dispatch([fileId])
             } catch (error) {
-                // TODO: display error toast
+                Toast.error('Error deleting file')
                 console.error('Error deleting file', error)
             }
             onDeleted?.()
