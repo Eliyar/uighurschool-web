@@ -90,7 +90,7 @@ export const FileMenu = ({ file }: Props) => {
                             <DeleteOutline color="error" />
                         </ListItemIcon>
                         <ListItemText sx={{ color: `${Colors.RED}` }}>
-                            Delete File
+                            Delete Lesson
                         </ListItemText>
                     </MenuItem>
                 </DeleteFile>

@@ -6,7 +6,10 @@ import { useCallback, useMemo } from 'react'
 import { deleteStudent } from '../../controllers/delete-student'
 import { updateStudent } from '../../controllers/update-student'
 import { useStudents } from '../../hooks/useStudents'
-import { OpenStudentFormDialog } from '../../services/eventbus.service'
+import {
+    OpenConfirmationDialog,
+    OpenStudentFormDialog,
+} from '../../services/eventbus.service'
 import { Class } from '../../services/models/Class.model'
 import { Student } from '../../services/models/Student.model'
 import { validationService } from '../../services/validation.service'
@@ -46,11 +49,20 @@ const columns: GridColDef[] = [
                 onClick={async (event) => {
                     event.stopPropagation()
 
-                    // TODO: display confirmation dialog
-
-                    await deleteStudent(params.row.classId, params.row.id)
-
-                    Toast.success('Student removed')
+                    OpenConfirmationDialog.emit({
+                        title: 'Removing student',
+                        message:
+                            'Are you sure you want to remove this student?',
+                        confirmLabel: 'Remove',
+                        confirmColor: 'error',
+                        onConfirm: async () => {
+                            await deleteStudent(
+                                params.row.classId,
+                                params.row.id
+                            )
+                            Toast.success('Student removed')
+                        },
+                    })
                 }}
                 sx={{ px: 1, py: 0.5, height: 32 }}
             />,
