@@ -16,6 +16,7 @@ import {
     StudentFormDialog,
     StudentFormDialogProps,
 } from './components/common/StudentFormDialog/StudentFormDialog'
+import { ToastContainer } from './components/common/Toast'
 import {
     eventBus,
     EventBusData,
@@ -59,6 +60,8 @@ export const Portal = () => {
 
     return (
         <>
+            <ToastContainer />
+
             {fileUploaderDialogProps && (
                 <FileUploaderDialog {...fileUploaderDialogProps} />
             )}

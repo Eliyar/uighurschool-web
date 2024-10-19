@@ -373,3 +373,18 @@ iframe {
 .rpv-default-layout__toolbar {
     display: none !important;
 }
+
+// Classes for react-toastify
+.Toastify__toast {
+    font-weight: 500;
+
+    &--success {
+        background: lighten($avs-green, 44%) !important;
+        color: darken($avs-green, 20%) !important;
+    }
+
+    &--error {
+        background: lighten($avs-red, 44%) !important;
+        color: darken($avs-red, 20%) !important;
+    }
+}
