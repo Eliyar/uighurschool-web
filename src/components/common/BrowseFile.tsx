@@ -2,6 +2,9 @@ import { CloudUpload } from '@mui/icons-material'
 import { Button, styled } from '@mui/material'
 import { useEffect, useRef } from 'react'
 
+import { ACCEPTED_UPLOAD_TYPES, MAX_FILE_SIZE } from '../../constants'
+import { Toast } from './Toast'
+
 interface Props {
     onChange(files: File[]): void
 }
@@ -39,10 +42,29 @@ export const BrowseFile = ({ onChange }: Props) => {
                         event?.target?.files ?? []
                     ) as File[]
 
-                    // TODO: Check file size
-                    // TODO: Check file type
+                    const filesFiltered = files.filter((file) => {
+                        // Check file type
+                        const isTypeAcceptable =
+                            files?.length &&
+                            ACCEPTED_UPLOAD_TYPES.indexOf(file.type) !== -1
+                        if (!isTypeAcceptable) {
+                            Toast.error(
+                                `${file.name} file type is not supported`
+                            )
+                            return false
+                        }
 
-                    onChange(files)
+                        // Check file size
+                        const isSizeAcceptable = file.size <= MAX_FILE_SIZE
+                        if (!isSizeAcceptable) {
+                            Toast.error(`${file.name} file size is too large`)
+                            return false
+                        }
+
+                        return true
+                    })
+
+                    onChange(filesFiltered)
                 }}
             />
         </Button>

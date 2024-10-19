@@ -13,8 +13,6 @@ export const uploadFile = async (
         return Promise.reject('No file provided')
     }
 
-    // TODO: check max file size
-
     // Upload base file
     let fileModel: FileModel | undefined
     try {
