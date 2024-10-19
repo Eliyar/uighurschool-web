@@ -8,7 +8,7 @@ const Styles = styled('iframe')`
 
 export const Iframe = ({ src }: { src: string }) => {
     const url = `${src}#view=FitH`
-    return <Styles src={url} />
+    return <Styles src={url} allowFullScreen />
 }
 
 // const url = `https://docs.google.com/viewer?url=${encodeURIComponent(
