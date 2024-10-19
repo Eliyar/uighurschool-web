@@ -355,7 +355,19 @@ button {
 }
 
 // Ensure images and iframes are responsive
-img, iframe {
+img,
+iframe {
     max-width: 100%;
     height: auto;
+}
+
+// Classes for react-pdf-viewer
+.rpv-default-layout__container {
+    border: 0 !important;
+}
+
+.rpv-default-layout__toolbar {
+    padding: 0px 16px !important;
+    background-color: white !important;
+    box-sizing: border-box !important;
 }

@@ -15,5 +15,5 @@ export const ViewUrl = () => {
         return <NotFoundPage message="URL not found" />
     }
 
-    return <PDFViewer url={navItem.url} />
+    return <PDFViewer name={navItem.name} url={navItem.url} />
 }
