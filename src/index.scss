@@ -366,8 +366,10 @@ iframe {
     border: 0 !important;
 }
 
+.rpv-default-layout__body {
+    padding-top: 0 !important;
+}
+
 .rpv-default-layout__toolbar {
-    padding: 0px 16px !important;
-    background-color: white !important;
-    box-sizing: border-box !important;
+    display: none !important;
 }

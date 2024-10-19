@@ -1,13 +1,8 @@
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'
 
-import { Stack } from '@mui/material'
-import {
-    SpecialZoomLevel,
-    Viewer,
-    Worker,
-    ZoomEvent,
-} from '@react-pdf-viewer/core'
+import { Stack, styled } from '@mui/material'
+import { SpecialZoomLevel, Viewer, Worker } from '@react-pdf-viewer/core'
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'
 import { zoomPlugin } from '@react-pdf-viewer/zoom'
 import { useEffect } from 'react'
@@ -22,7 +17,7 @@ const workerUrl =
 
 export const PDFViewer = ({ url }: Props) => {
     const zoomPluginInstance = zoomPlugin()
-    const { Zoom, ZoomOut, ZoomIn, zoomTo } = zoomPluginInstance
+    const { zoomTo, Zoom, ZoomIn, ZoomOut } = zoomPluginInstance
 
     // Zoom to page width on mount
     useEffect(() => {
@@ -31,39 +26,60 @@ export const PDFViewer = ({ url }: Props) => {
 
     const defaultLayoutPluginInstance = defaultLayoutPlugin({
         sidebarTabs: () => [],
-        renderToolbar: (props) => (
-            <Stack
-                {...props}
-                direction="row"
-                alignItems="center"
-                justifyContent="flex-end"
-                spacing={1}
-                gap={1}
-                sx={{ width: '100%' }}
-            >
-                {/* <Typography variant="body1" fontWeight={500}>
-                    {name ?? ''}
-                </Typography> */}
-                <Stack direction="row" alignItems="center" spacing={1}>
-                    <ZoomOut />
-                    <Zoom />
-                    <ZoomIn />
-                </Stack>
-            </Stack>
-        ),
+        renderToolbar: () => <></>,
     })
-
-    const handleZoom = (event: ZoomEvent) => {
-        console.log('event:', event)
-    }
 
     return (
         <Worker workerUrl={workerUrl}>
+            <ZoomControls
+                zoomNode={<Zoom />}
+                zoomInNode={<ZoomIn />}
+                zoomOutNode={<ZoomOut />}
+            />
             <Viewer
                 fileUrl={url}
                 plugins={[defaultLayoutPluginInstance, zoomPluginInstance]}
-                onZoom={handleZoom}
             />
         </Worker>
+    )
+}
+
+const ZoomControlsStyles = styled(Stack)`
+    padding: 4px;
+    position: absolute;
+    top: 16px;
+    right: 40px;
+    z-index: 1000;
+    display: inline-flex;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid ${({ theme }) => theme.palette.divider};
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    zoom: 1.2;
+`
+
+const ZoomControls = ({
+    zoomNode,
+    zoomInNode,
+    zoomOutNode,
+}: {
+    zoomNode: React.ReactNode
+    zoomInNode: React.ReactNode
+    zoomOutNode: React.ReactNode
+}) => {
+    return (
+        <ZoomControlsStyles
+            direction="row"
+            alignItems="center"
+            justifyContent="flex-end"
+            spacing={1}
+        >
+            <Stack direction="row" alignItems="center" spacing={1}>
+                {zoomOutNode}
+                {zoomNode}
+                {zoomInNode}
+            </Stack>
+        </ZoomControlsStyles>
     )
 }
