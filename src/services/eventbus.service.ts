@@ -1,5 +1,6 @@
 import { Observable, Subject } from 'rxjs'
 
+import { ConfirmationDialogProps } from '../components/common/ConfirmationDialog'
 import { Class } from './models/Class.model'
 import { Student } from './models/Student.model'
 
@@ -57,6 +58,16 @@ export class OpenSendLessonsDialog {
     static emit = () => {
         eventBus.emit({
             action: OpenSendLessonsDialog.type,
+        })
+    }
+}
+
+export class OpenConfirmationDialog {
+    static readonly type: string = 'OpenConfirmationDialog'
+    static emit = (props: Omit<ConfirmationDialogProps, 'open'>) => {
+        eventBus.emit({
+            action: OpenConfirmationDialog.type,
+            payload: props,
         })
     }
 }
