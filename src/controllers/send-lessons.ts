@@ -1,4 +1,4 @@
-import { createLesson } from '../services/firebase/db/lessons/create'
+import { Toast } from '../components/common/Toast'
 import { firebaseService } from '../services/firebase/firebase.service'
 import { utilsService } from '../services/firebase/utils.service'
 import { FileModel } from '../services/models/File.model'
@@ -38,9 +38,14 @@ export const sendLessons = async (payload: {
                 payload.classId,
                 payload.files?.map((file) => file.id) ?? []
             )
-            return createLesson(lesson).then(() => {
+            return firebaseService.db.createLesson(lesson).then(() => {
                 LessonAdded.dispatch(lesson)
                 return lesson
             })
+        })
+        .catch((error) => {
+            console.error('Error sending lesson(s):', error)
+            Toast.error('Error sending lesson(s)')
+            return Promise.reject(error)
         })
 }
